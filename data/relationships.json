@@ -1,0 +1,8045 @@
+[
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.95,
+    "source": "well-known: TSM fabs NVDA AI chips"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.9,
+    "source": "TSM fabs AMD CPUs/GPUs"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.85,
+    "source": "TSM fabs Broadcom networking"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.85,
+    "source": "TSM fabs Snapdragon"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.8,
+    "source": "TSM fabs Marvell"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "TSM",
+    "type": "supplier",
+    "weight": 0.9,
+    "source": "TSM fabs Apple Silicon"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "AMAT",
+    "type": "supplier",
+    "weight": 0.7,
+    "source": "Applied Materials sells deposition tools"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "LRCX",
+    "type": "supplier",
+    "weight": 0.7,
+    "source": "Lam Research etch tools"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "KLAC",
+    "type": "supplier",
+    "weight": 0.65,
+    "source": "KLA process control"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "AMAT",
+    "type": "supplier",
+    "weight": 0.6,
+    "source": "Intel uses Applied Materials"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "LRCX",
+    "type": "supplier",
+    "weight": 0.55,
+    "source": "Intel uses Lam"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "NVDA",
+    "type": "supplier",
+    "weight": 0.9,
+    "source": "Supermicro depends on NVDA GPUs for AI servers"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "AMD",
+    "type": "supplier",
+    "weight": 0.5,
+    "source": "Some AMD GPU servers"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "MSFT",
+    "type": "customer",
+    "weight": 0.85,
+    "source": "Azure largest NVDA buyer"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "GOOGL",
+    "type": "customer",
+    "weight": 0.8,
+    "source": "GCP NVDA buyer"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "AMZN",
+    "type": "customer",
+    "weight": 0.8,
+    "source": "AWS NVDA buyer"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "META",
+    "type": "customer",
+    "weight": 0.85,
+    "source": "Meta GPU mega-orders"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "ORCL",
+    "type": "customer",
+    "weight": 0.55,
+    "source": "Oracle GPU clouds"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "AVGO",
+    "type": "supplier",
+    "weight": 0.65,
+    "source": "Broadcom wireless chips in iPhone"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "QCOM",
+    "type": "supplier",
+    "weight": 0.5,
+    "source": "Qualcomm 5G modems"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "NVDA",
+    "type": "supplier",
+    "weight": 0.4,
+    "source": "NVDA DRIVE platform partial"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "Detroit Big-3 peers"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "EV peer"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "EV peer"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "UPS",
+    "type": "supplier",
+    "weight": 0.5,
+    "source": "UPS last-mile contractor"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "UPS",
+    "type": "supplier",
+    "weight": 0.4,
+    "source": "fulfillment"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "defense prime peers"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "defense prime peers"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "aerospace peers"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "GE",
+    "type": "supplier",
+    "weight": 0.6,
+    "source": "GE engines"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "streaming peers"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.7,
+    "source": "media peers"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "wireline+wireless peers"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "wireless peers"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "wireless peers"
+  },
+  {
+    "from_ticker": "AMT",
+    "to_ticker": "TMUS",
+    "type": "customer",
+    "weight": 0.7,
+    "source": "tower lease revenue from carriers"
+  },
+  {
+    "from_ticker": "AMT",
+    "to_ticker": "VZ",
+    "type": "customer",
+    "weight": 0.7,
+    "source": "tower lease revenue"
+  },
+  {
+    "from_ticker": "AMT",
+    "to_ticker": "T",
+    "type": "customer",
+    "weight": 0.7,
+    "source": "tower lease revenue"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "supermajor peers"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "E&P peers"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "E&P peers"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "refining peers"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "XOM",
+    "type": "customer",
+    "weight": 0.55,
+    "source": "oilfield services customer"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "CVX",
+    "type": "customer",
+    "weight": 0.5,
+    "source": "oilfield services customer"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "OXY",
+    "type": "derivative",
+    "weight": 0.7,
+    "source": "co-move with crude"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "EOG",
+    "type": "derivative",
+    "weight": 0.7,
+    "source": "co-move with crude"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "COP",
+    "type": "derivative",
+    "weight": 0.7,
+    "source": "co-move with crude"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "money-center bank peers"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "money-center bank peers"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "money-center bank peers"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "money-center bank peers"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "i-bank peers"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "card network duopoly"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.7,
+    "source": "card-issuer/network peers"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.7,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "large pharma peers"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "life-sci tools peers"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.98,
+    "source": "beverage duopoly"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "tobacco peers"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "household products peers"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "warehouse/discount peers"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.97,
+    "source": "home improvement duopoly"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.65,
+    "source": "QSR peers"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "heavy machinery peers"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.55,
+    "source": "freight peers"
+  },
+  {
+    "from_ticker": "LIN",
+    "to_ticker": "APD",
+    "type": "peer",
+    "weight": 0.95,
+    "source": "industrial gas duopoly"
+  },
+  {
+    "from_ticker": "FCX",
+    "to_ticker": "NEM",
+    "type": "peer",
+    "weight": 0.55,
+    "source": "miners with macro overlap"
+  },
+  {
+    "from_ticker": "NEE",
+    "to_ticker": "SO",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "regulated utility peers"
+  },
+  {
+    "from_ticker": "NEE",
+    "to_ticker": "DUK",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "regulated utility peers"
+  },
+  {
+    "from_ticker": "SO",
+    "to_ticker": "DUK",
+    "type": "peer",
+    "weight": 0.9,
+    "source": "regulated utility peers"
+  },
+  {
+    "from_ticker": "EQIX",
+    "to_ticker": "MSFT",
+    "type": "customer",
+    "weight": 0.55,
+    "source": "Azure colocation"
+  },
+  {
+    "from_ticker": "EQIX",
+    "to_ticker": "AMZN",
+    "type": "customer",
+    "weight": 0.55,
+    "source": "AWS colocation"
+  },
+  {
+    "from_ticker": "EQIX",
+    "to_ticker": "GOOGL",
+    "type": "customer",
+    "weight": 0.5,
+    "source": "GCP colocation"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "hyperscaler peers"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.85,
+    "source": "hyperscaler peers"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.8,
+    "source": "hyperscaler peers"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.55,
+    "source": "enterprise SaaS peers"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.45,
+    "source": "software peers"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.55,
+    "source": "enterprise SaaS peers"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.5,
+    "source": "data platform peers"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.45,
+    "source": "data platform peers"
+  },
+  {
+    "from_ticker": "FCX",
+    "to_ticker": "NEM",
+    "type": "derivative",
+    "weight": 0.6,
+    "source": "metals co-move with macro"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "AAPL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ADBE",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "ADBE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMAT",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "AMAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AMD",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "AMD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "AVGO",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "AVGO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CRM",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "CRM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CSCO",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "CSCO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "IBM",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "IBM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "INTC",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "INTC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "KLAC",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "KLAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "LRCX",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "LRCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MRVL",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "MRVL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MSFT",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "MSFT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "MU",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "MU",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "NVDA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "ORCL",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "ORCL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "PLTR",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "PLTR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "QCOM",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "QCOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SMCI",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "SMCI",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "SNOW",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "SNOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TSM",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "TSM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "TXN",
+    "to_ticker": "UBER",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "UBER",
+    "to_ticker": "TXN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Technology"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "CMCSA",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "CMCSA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "DIS",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "DIS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "GOOGL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "META",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "META",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "T",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "TMUS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "NFLX",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "NFLX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "VZ",
+    "to_ticker": "T",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "TMUS",
+    "to_ticker": "VZ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Communication Services"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "AMZN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "BKNG",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "BKNG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "F",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "F",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "GM",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "GM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "HD",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "HD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "LOW",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "LOW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "MCD",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "MCD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "NKE",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "NKE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "SBUX",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "SBUX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TJX",
+    "to_ticker": "TSLA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "TSLA",
+    "to_ticker": "TJX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Discretionary"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "AXP",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "AXP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BAC",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "BAC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BLK",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "BLK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "BX",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "BX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "C",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "C",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "GS",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "GS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "JPM",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "JPM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MA",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "MA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "MS",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "MS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "SCHW",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "SCHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "V",
+    "to_ticker": "WFC",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "WFC",
+    "to_ticker": "V",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Financials"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABBV",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "ABBV",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "ABT",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "ABT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "BMY",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "BMY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "DHR",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "DHR",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "JNJ",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "JNJ",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "LLY",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "LLY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "MRK",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "MRK",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "PFE",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "PFE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "TMO",
+    "to_ticker": "UNH",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "UNH",
+    "to_ticker": "TMO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Healthcare"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "CL",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "CL",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "COST",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COST",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "KO",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "KO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "MO",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "MO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PEP",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "PEP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PG",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "PG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "PM",
+    "to_ticker": "WMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "WMT",
+    "to_ticker": "PM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Consumer Staples"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "COP",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "COP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "CVX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "CVX",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "EOG",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "EOG",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "OXY",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "OXY",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "PSX",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "PSX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "SLB",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "SLB",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "VLO",
+    "to_ticker": "XOM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "XOM",
+    "to_ticker": "VLO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Energy"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "BA",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "BA",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "CAT",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "CAT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "DE",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "DE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "GE",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "GE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "HON",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "HON",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "LMT",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "LMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "UNP",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "RTX",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UPS",
+    "to_ticker": "RTX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "UNP",
+    "to_ticker": "UPS",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Industrials"
+  },
+  {
+    "from_ticker": "APD",
+    "to_ticker": "FCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "FCX",
+    "to_ticker": "APD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "APD",
+    "to_ticker": "LIN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "APD",
+    "to_ticker": "NEM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "NEM",
+    "to_ticker": "APD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "APD",
+    "to_ticker": "SHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "SHW",
+    "to_ticker": "APD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "FCX",
+    "to_ticker": "LIN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "LIN",
+    "to_ticker": "FCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "NEM",
+    "to_ticker": "FCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "FCX",
+    "to_ticker": "SHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "SHW",
+    "to_ticker": "FCX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "LIN",
+    "to_ticker": "NEM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "NEM",
+    "to_ticker": "LIN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "LIN",
+    "to_ticker": "SHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "SHW",
+    "to_ticker": "LIN",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "NEM",
+    "to_ticker": "SHW",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "SHW",
+    "to_ticker": "NEM",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Materials"
+  },
+  {
+    "from_ticker": "AMT",
+    "to_ticker": "EQIX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "EQIX",
+    "to_ticker": "AMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "AMT",
+    "to_ticker": "PLD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "PLD",
+    "to_ticker": "AMT",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "EQIX",
+    "to_ticker": "PLD",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "PLD",
+    "to_ticker": "EQIX",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Real Estate"
+  },
+  {
+    "from_ticker": "DUK",
+    "to_ticker": "NEE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Utilities"
+  },
+  {
+    "from_ticker": "DUK",
+    "to_ticker": "SO",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Utilities"
+  },
+  {
+    "from_ticker": "SO",
+    "to_ticker": "NEE",
+    "type": "peer",
+    "weight": 0.3,
+    "source": "sector-peer:Utilities"
+  }
+]
