@@ -24,6 +24,9 @@ app = FastAPI(
     title="Cascade API",
     description="Real-time market cascade intelligence (H0 bootstrap surface).",
     version="0.6.0-bootstrap",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+    openapi_url="/api/openapi.json",
 )
 
 app.add_middleware(
