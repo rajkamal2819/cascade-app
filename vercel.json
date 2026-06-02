@@ -21,16 +21,6 @@
       "maxDuration": 30
     }
   },
-  "crons": [
-    {
-      "path": "/api/cron/dispatch_workers?bucket=hi",
-      "schedule": "*/5 * * * *"
-    },
-    {
-      "path": "/api/cron/dispatch_workers?bucket=lo",
-      "schedule": "0 * * * *"
-    }
-  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
