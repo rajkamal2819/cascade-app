@@ -38,6 +38,40 @@ app.add_middleware(
 )
 
 
+@app.get("/api/debug/env")
+async def debug_env() -> dict[str, Any]:
+    """Diagnostic — lists Vercel/AWS env var presence (NEVER values).
+    Used to verify whether VERCEL_OIDC_TOKEN is being injected."""
+    keys_to_check = [
+        "VERCEL_OIDC_TOKEN",
+        "VERCEL_ENV",
+        "VERCEL_URL",
+        "VERCEL_REGION",
+        "VERCEL_DEPLOYMENT_ID",
+        "POSTGRES_AWS_ROLE_ARN",
+        "POSTGRES_PGHOST",
+        "DYNAMODB_AWS_ROLE_ARN",
+        "DYNAMODB_TABLE_NAME",
+        "AWS_REGION",
+        "AWS_LAMBDA_FUNCTION_NAME",
+        "CRON_SECRET",
+    ]
+    present = {}
+    for k in keys_to_check:
+        v = os.environ.get(k)
+        if v:
+            present[k] = f"set ({len(v)} chars)"
+        else:
+            present[k] = "MISSING"
+    vercel_keys = sorted([k for k in os.environ if k.startswith("VERCEL_")])
+    aws_keys = sorted([k for k in os.environ if k.startswith("AWS_") or k.startswith("POSTGRES_") or k.startswith("DYNAMODB_")])
+    return {
+        "checked": present,
+        "all_vercel_keys": vercel_keys,
+        "all_aws_postgres_dynamo_keys": aws_keys,
+    }
+
+
 @app.get("/api/health")
 async def health() -> dict[str, Any]:
     aurora_state: dict[str, Any]
