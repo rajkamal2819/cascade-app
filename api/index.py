@@ -1,22 +1,63 @@
 """
 Vercel Python Serverless Function entrypoint for the Cascade FastAPI app.
 
-Vercel's Python runtime discovers `api/index.py` and serves any matched route
-under `/api/*` through the ASGI handler exported here. The existing FastAPI
-`app` from `api/main.py` is wrapped with `mangum` so it speaks the ASGI →
-Lambda-style event interface that Vercel's runtime uses.
-
-Rewrites in `vercel.json` send all `/api/*` traffic to this single function,
-so `api/main.py`'s router stays the source of truth for the API surface.
+Minimal bootstrap surface during the Mongo → Aurora/DynamoDB port. Exposes a
+`/api/health` endpoint that exercises both AWS data adapters end-to-end so the
+OIDC → STS → RDS-IAM (Aurora) and OIDC → STS → DynamoDB credential paths can
+be verified against the live Vercel deployment. The full `api/main.py` router
+is wired back in once Mongo call sites are migrated to `db/aurora.py` /
+`db/dynamo.py`.
 """
 
 from __future__ import annotations
 
+import os
+from typing import Any
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
-from api.main import app as fastapi_app
+from db import aurora, dynamo
 
-# Vercel's Python runtime looks for `handler` (or any ASGI/WSGI callable named
-# `app`). Exporting both keeps it tolerant to runtime-version drift.
-handler = Mangum(fastapi_app, lifespan="off")
-app = fastapi_app
+app = FastAPI(
+    title="Cascade API",
+    description="Real-time market cascade intelligence (H0 bootstrap surface).",
+    version="0.6.0-bootstrap",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/api/health")
+async def health() -> dict[str, Any]:
+    aurora_state: dict[str, Any]
+    try:
+        aurora_state = await aurora.ping()
+    except Exception as e:
+        aurora_state = {"ok": False, "error": str(e)[:300]}
+
+    dynamo_state: dict[str, Any]
+    try:
+        dynamo_state = await dynamo.ping()
+    except Exception as e:
+        dynamo_state = {"ok": False, "error": str(e)[:300]}
+
+    return {
+        "ok": aurora_state.get("ok") and dynamo_state.get("ok"),
+        "aurora": aurora_state,
+        "dynamo": dynamo_state,
+        "region": os.environ.get("AWS_REGION")
+        or os.environ.get("POSTGRES_AWS_REGION")
+        or "unset",
+        "oidc": "present" if os.environ.get("VERCEL_OIDC_TOKEN") else "missing",
+    }
+
+
+handler = Mangum(app, lifespan="off")

@@ -1,60 +1,111 @@
 """
-Aurora PostgreSQL adapter — asyncpg pool + helpers.
+Aurora PostgreSQL adapter — asyncpg pool with RDS IAM auth via Vercel OIDC.
 
-Replaces the Mongo Motor singleton from Cascade. Every other module in Cascade
-should reach Aurora through `get_pool()` / `acquire()` here, never by
-constructing its own connection.
+Replaces the Mongo Motor singleton from Cascade. Every other module reaches
+Aurora through `get_pool()` here, never by constructing its own connection.
 
-This file is a STUB for the Day 3–5 bootstrap. Real implementation lands in
-Days 10–14 of the plan (`/Users/rajkamal/.claude/plans/now-i-want-you-binary-raven.md` §13.8):
+Authentication path (production):
+    1. Vercel injects `VERCEL_OIDC_TOKEN` per request.
+    2. STS `AssumeRoleWithWebIdentity` exchanges it for temp creds scoped to
+       `POSTGRES_AWS_ROLE_ARN` (the role the Marketplace integration created).
+    3. `rds:GenerateDBAuthToken` produces a 15-min password.
+    4. asyncpg connects over TLS using that password.
 
-    - get_pool() / acquire() / close_pool()
-    - register pgvector type codec on every connection
-    - hybrid_search(query, k, sector, impact, days_back)  ← replaces $vectorSearch + $search + RRF
-    - recursive_cascade(root_tickers, max_hops, min_weight)  ← replaces $graphLookup
-    - geo_companies_within(lat, lon, radius_km)  ← replaces 2dsphere $geoNear via PostGIS
-    - listen_events(callback)  ← LISTEN/NOTIFY consumer for the SSE primary channel
-    - upsert_event(draft) / upsert_company(...) / upsert_relationship(...)
-
-Connection string is read from DATABASE_URL or POSTGRES_URL (whichever the
-Vercel Marketplace integration populates).
+Pool refresh: pool is recreated if older than 13 minutes (under the 15-min
+token lifetime) so long-running function instances don't accumulate stale
+connections. Vercel function lifetimes are well under this in practice.
 """
 
 from __future__ import annotations
 
 import os
-from typing import Any
+import ssl
+import time
+from typing import Optional
 
-# Lazy import — keeps the cold Vercel function fast when only DynamoDB is used.
-_pool: Any = None
+import asyncpg
+import boto3
+
+from ._aws_creds import get_aws_credentials
+
+_pool: Optional[asyncpg.Pool] = None
+_pool_created_at: float = 0.0
+_POOL_TTL_SECONDS = 13 * 60
 
 
-def _dsn() -> str:
-    """Resolve the Aurora connection string from any of the env var names
-    Vercel/AWS might populate."""
-    for var in ("DATABASE_URL", "POSTGRES_URL", "POSTGRES_PRISMA_URL"):
-        value = os.environ.get(var)
-        if value:
-            return value
-    raise RuntimeError(
-        "Aurora connection string missing — set DATABASE_URL or POSTGRES_URL"
+def _config() -> tuple[str, int, str, str, str, Optional[str]]:
+    host = os.environ.get("POSTGRES_PGHOST") or os.environ.get("POSTGRES_HOST")
+    port = int(os.environ.get("POSTGRES_PGPORT") or os.environ.get("POSTGRES_PORT") or 5432)
+    user = os.environ.get("POSTGRES_PGUSER") or os.environ.get("POSTGRES_USER", "postgres")
+    database = (
+        os.environ.get("POSTGRES_PGDATABASE")
+        or os.environ.get("POSTGRES_DATABASE", "postgres")
+    )
+    region = (
+        os.environ.get("POSTGRES_AWS_REGION")
+        or os.environ.get("AWS_REGION", "ap-south-1")
+    )
+    role_arn = os.environ.get("POSTGRES_AWS_ROLE_ARN")
+    if not host:
+        raise RuntimeError("Aurora host missing — set POSTGRES_PGHOST")
+    return host, port, user, database, region, role_arn
+
+
+def _rds_auth_token(
+    host: str, port: int, user: str, region: str, role_arn: Optional[str]
+) -> str:
+    creds = get_aws_credentials(role_arn)
+    if creds is None:
+        client = boto3.client("rds", region_name=region)
+    else:
+        client = boto3.client(
+            "rds",
+            region_name=region,
+            aws_access_key_id=creds.access_key,
+            aws_secret_access_key=creds.secret_key,
+            aws_session_token=creds.session_token,
+        )
+    return client.generate_db_auth_token(
+        DBHostname=host, Port=port, DBUsername=user, Region=region
     )
 
 
-async def get_pool() -> Any:
-    """Lazily initialise and return the shared asyncpg pool.
-
-    NOT YET IMPLEMENTED. Tracked for Days 10–14.
-    """
-    raise NotImplementedError(
-        "db.aurora.get_pool — implementation pending (plan §13.8 Days 10–14)"
+async def get_pool() -> asyncpg.Pool:
+    global _pool, _pool_created_at
+    if _pool is not None and (time.time() - _pool_created_at) < _POOL_TTL_SECONDS:
+        return _pool
+    if _pool is not None:
+        await _pool.close()
+        _pool = None
+    host, port, user, database, region, role_arn = _config()
+    password = _rds_auth_token(host, port, user, region, role_arn)
+    ssl_ctx = ssl.create_default_context()
+    _pool = await asyncpg.create_pool(
+        host=host,
+        port=port,
+        user=user,
+        password=password,
+        database=database,
+        ssl=ssl_ctx,
+        min_size=1,
+        max_size=5,
+        command_timeout=30,
     )
+    _pool_created_at = time.time()
+    return _pool
 
 
 async def close_pool() -> None:
-    """Close the shared asyncpg pool. Called on Vercel function shutdown
-    (best-effort — Vercel may terminate without a clean signal)."""
     global _pool
     if _pool is not None:
         await _pool.close()
         _pool = None
+
+
+async def ping() -> dict:
+    """Lightweight health-check: round-trip a `SELECT 1` against Aurora."""
+    pool = await get_pool()
+    async with pool.acquire() as conn:
+        result = await conn.fetchval("SELECT 1")
+        version = await conn.fetchval("SELECT version()")
+    return {"ok": result == 1, "version": version}
