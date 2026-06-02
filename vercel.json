@@ -4,20 +4,6 @@
   "installCommand": "cd web && npm install",
   "outputDirectory": "web/.next",
   "framework": "nextjs",
-  "functions": {
-    "api/index.py": {
-      "memory": 1024,
-      "maxDuration": 60
-    },
-    "api/cron/dispatch_workers.py": {
-      "memory": 1024,
-      "maxDuration": 60
-    },
-    "api/internal/dynamo_event.py": {
-      "memory": 512,
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
