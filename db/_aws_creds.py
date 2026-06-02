@@ -1,14 +1,19 @@
 """
-AWS credential acquisition via Vercel OIDC.
+AWS credential acquisition from Vercel's Marketplace integration.
 
-In production Vercel Functions: `VERCEL_OIDC_TOKEN` is injected per-request. We
-exchange it via STS `AssumeRoleWithWebIdentity` for short-lived AWS creds
-scoped to the per-database role the Vercel Marketplace integration created
-(`POSTGRES_AWS_ROLE_ARN` / `DYNAMODB_AWS_ROLE_ARN`). No long-lived AWS keys are
-ever stored — this is the most-secure path called out in the H0 hackathon FAQ.
+The Vercel Marketplace AWS Databases integration injects credentials via a
+container metadata service rather than long-lived AWS keys or OIDC tokens:
 
-Local dev: when `VERCEL_OIDC_TOKEN` is missing, callers fall back to the
-default boto3 credential chain (AWS_PROFILE, ~/.aws/credentials, etc.).
+    AWS_LAMBDA_METADATA_API    — fully-qualified URL returning AWS creds JSON
+    AWS_LAMBDA_METADATA_TOKEN  — bearer token sent in the Authorization header
+
+We fetch from this endpoint directly and cache the result until just before
+its Expiration. Boto3's built-in ContainerProvider can't be used here because
+it enforces a hardcoded loopback-address allowlist that doesn't match
+Vercel's URL.
+
+Local dev (no AWS_LAMBDA_METADATA_API): returns None so callers fall back to
+the default boto3 credential chain (AWS_PROFILE, ~/.aws/credentials, etc.).
 """
 
 from __future__ import annotations
@@ -16,11 +21,11 @@ from __future__ import annotations
 import os
 import time
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 
-import boto3
+import httpx
 
-_SESSION_NAME = "vercel-cascade"
 _REFRESH_BUFFER_SECONDS = 300
 
 
@@ -32,39 +37,47 @@ class AwsCreds:
     expires_at: float
 
 
-_cache: dict[str, AwsCreds] = {}
+_cached: Optional[AwsCreds] = None
 
 
-def _assume_role_with_oidc(role_arn: str, oidc_token: str) -> AwsCreds:
-    sts = boto3.client("sts")
-    resp = sts.assume_role_with_web_identity(
-        RoleArn=role_arn,
-        RoleSessionName=_SESSION_NAME,
-        WebIdentityToken=oidc_token,
-        DurationSeconds=3600,
-    )
-    c = resp["Credentials"]
+def _parse_expiration(value: str) -> float:
+    """Parse the Expiration field. Accepts ISO 8601 with or without trailing Z."""
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    return datetime.fromisoformat(value).timestamp()
+
+
+def _fetch_from_vercel() -> AwsCreds:
+    url = os.environ["AWS_LAMBDA_METADATA_API"]
+    token = os.environ.get("AWS_LAMBDA_METADATA_TOKEN", "")
+    headers = {"Authorization": token} if token else {}
+    with httpx.Client(timeout=5.0) as client:
+        resp = client.get(url, headers=headers)
+        resp.raise_for_status()
+        data = resp.json()
     return AwsCreds(
-        access_key=c["AccessKeyId"],
-        secret_key=c["SecretAccessKey"],
-        session_token=c["SessionToken"],
-        expires_at=c["Expiration"].timestamp(),
+        access_key=data["AccessKeyId"],
+        secret_key=data["SecretAccessKey"],
+        session_token=data.get("Token", ""),
+        expires_at=_parse_expiration(data["Expiration"]),
     )
 
 
-def get_aws_credentials(role_arn: Optional[str]) -> Optional[AwsCreds]:
-    """Resolve AWS credentials for `role_arn` via Vercel OIDC.
+def get_aws_credentials(_role_arn: Optional[str] = None) -> Optional[AwsCreds]:
+    """Resolve AWS credentials from the Vercel metadata service.
 
-    Returns None when no OIDC token is present (caller falls back to the
-    default boto3 credential chain — appropriate for local dev).
+    The role_arn argument is ignored (kept for backwards compatibility with the
+    earlier OIDC-based implementation). Vercel's metadata service already
+    returns credentials scoped to the role the Marketplace integration created.
+
+    Returns None when AWS_LAMBDA_METADATA_API is not present (local dev) —
+    the caller should fall back to the default boto3 chain in that case.
     """
-    oidc = os.environ.get("VERCEL_OIDC_TOKEN")
-    if not oidc or not role_arn:
+    global _cached
+    if "AWS_LAMBDA_METADATA_API" not in os.environ:
         return None
-    cached = _cache.get(role_arn)
     now = time.time()
-    if cached and cached.expires_at - now > _REFRESH_BUFFER_SECONDS:
-        return cached
-    fresh = _assume_role_with_oidc(role_arn, oidc)
-    _cache[role_arn] = fresh
-    return fresh
+    if _cached and _cached.expires_at - now > _REFRESH_BUFFER_SECONDS:
+        return _cached
+    _cached = _fetch_from_vercel()
+    return _cached
