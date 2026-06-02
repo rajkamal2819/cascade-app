@@ -10,6 +10,19 @@ Routes mounted:
 from __future__ import annotations
 
 import os
+
+# IMPORTANT: must run BEFORE any boto3 import. The Vercel Marketplace AWS
+# integration injects credentials via a container metadata service, but uses
+# its own env var names (AWS_LAMBDA_METADATA_API / _TOKEN). Boto3 reads the
+# standard container-creds env vars instead; aliasing here lets boto3's
+# built-in ContainerProvider auto-discover and refresh creds without any
+# manual STS calls.
+if "AWS_LAMBDA_METADATA_API" in os.environ and "AWS_CONTAINER_CREDENTIALS_FULL_URI" not in os.environ:
+    os.environ["AWS_CONTAINER_CREDENTIALS_FULL_URI"] = os.environ["AWS_LAMBDA_METADATA_API"]
+    token = os.environ.get("AWS_LAMBDA_METADATA_TOKEN")
+    if token:
+        os.environ["AWS_CONTAINER_AUTHORIZATION_TOKEN"] = token
+
 from typing import Any
 
 from fastapi import FastAPI
