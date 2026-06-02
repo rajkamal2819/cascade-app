@@ -1,0 +1,40 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd web && npm run build",
+  "installCommand": "cd web && npm install",
+  "outputDirectory": "web/.next",
+  "framework": "nextjs",
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11",
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "api/cron/dispatch_workers.py": {
+      "runtime": "python3.11",
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "api/internal/dynamo_event.py": {
+      "runtime": "python3.11",
+      "memory": 512,
+      "maxDuration": 30
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/dispatch_workers?bucket=hi",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/dispatch_workers?bucket=lo",
+      "schedule": "0 * * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    }
+  ]
+}
