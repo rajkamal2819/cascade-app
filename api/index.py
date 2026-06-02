@@ -1,12 +1,10 @@
 """
 Vercel Python Serverless Function entrypoint for the Cascade FastAPI app.
 
-Minimal bootstrap surface during the Mongo → Aurora/DynamoDB port. Exposes a
-`/api/health` endpoint that exercises both AWS data adapters end-to-end so the
-OIDC → STS → RDS-IAM (Aurora) and OIDC → STS → DynamoDB credential paths can
-be verified against the live Vercel deployment. The full `api/main.py` router
-is wired back in once Mongo call sites are migrated to `db/aurora.py` /
-`db/dynamo.py`.
+Routes mounted:
+    /api/health              — dual-DB connectivity probe
+    /api/admin/*             — schema bootstrap, seed (CRON_SECRET gated)
+    /api/companies, /api/cascade/walk, /api/geo/nearby — public read endpoints
 """
 
 from __future__ import annotations
@@ -19,11 +17,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
 from db import aurora, dynamo
+from api.admin import router as admin_router
+from api.graph import router as graph_router
 
 app = FastAPI(
     title="Cascade API",
-    description="Real-time market cascade intelligence (H0 bootstrap surface).",
-    version="0.6.0-bootstrap",
+    description="Real-time market cascade intelligence on Vercel + AWS Databases.",
+    version="0.7.0-mvp",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
     openapi_url="/api/openapi.json",
@@ -61,6 +61,10 @@ async def health() -> dict[str, Any]:
         or "unset",
         "oidc": "present" if os.environ.get("VERCEL_OIDC_TOKEN") else "missing",
     }
+
+
+app.include_router(admin_router)
+app.include_router(graph_router)
 
 
 handler = Mangum(app, lifespan="off")
