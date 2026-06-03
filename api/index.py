@@ -65,10 +65,14 @@ async def debug_env() -> dict[str, Any]:
             present[k] = "MISSING"
     vercel_keys = sorted([k for k in os.environ if k.startswith("VERCEL_")])
     aws_keys = sorted([k for k in os.environ if k.startswith("AWS_") or k.startswith("POSTGRES_") or k.startswith("DYNAMODB_")])
+    api_url = os.environ.get("AWS_LAMBDA_METADATA_API", "")
     return {
         "checked": present,
         "all_vercel_keys": vercel_keys,
         "all_aws_postgres_dynamo_keys": aws_keys,
+        "lambda_metadata_api_prefix": api_url[:80],
+        "lambda_metadata_api_length": len(api_url),
+        "starts_with_http": api_url.startswith(("http://", "https://")),
     }
 
 
