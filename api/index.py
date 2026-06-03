@@ -66,13 +66,35 @@ async def debug_env() -> dict[str, Any]:
     vercel_keys = sorted([k for k in os.environ if k.startswith("VERCEL_")])
     aws_keys = sorted([k for k in os.environ if k.startswith("AWS_") or k.startswith("POSTGRES_") or k.startswith("DYNAMODB_")])
     api_url = os.environ.get("AWS_LAMBDA_METADATA_API", "")
+    token = os.environ.get("AWS_LAMBDA_METADATA_TOKEN", "")
+    probes: dict[str, Any] = {}
+    if api_url:
+        base = api_url if api_url.startswith(("http://", "https://")) else f"http://{api_url}"
+        import httpx as _httpx
+        candidate_paths = [
+            "/",
+            "/credentials",
+            "/.aws/credentials",
+            "/aws/credentials",
+            "/aws/iam/credentials",
+            "/oidc/token",
+            "/identity-token",
+        ]
+        for path in candidate_paths:
+            url = base.rstrip("/") + path
+            try:
+                with _httpx.Client(timeout=3.0) as c:
+                    r = c.get(url, headers={"Authorization": token} if token else {})
+                    body = r.text[:200]
+                    probes[path] = {"status": r.status_code, "body": body}
+            except Exception as e:
+                probes[path] = {"error": str(e)[:200]}
     return {
         "checked": present,
         "all_vercel_keys": vercel_keys,
         "all_aws_postgres_dynamo_keys": aws_keys,
-        "lambda_metadata_api_prefix": api_url[:80],
-        "lambda_metadata_api_length": len(api_url),
-        "starts_with_http": api_url.startswith(("http://", "https://")),
+        "lambda_metadata_api_value": api_url,
+        "probes": probes,
     }
 
 
