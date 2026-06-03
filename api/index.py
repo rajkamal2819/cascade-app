@@ -12,18 +12,18 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 
-from db import aurora, dynamo
+from db import aurora, dynamo, _aws_creds
 from api.admin import router as admin_router
 from api.graph import router as graph_router
 
 app = FastAPI(
     title="Cascade API",
     description="Real-time market cascade intelligence on Vercel + AWS Databases.",
-    version="0.7.0-mvp",
+    version="0.8.0-mvp",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
     openapi_url="/api/openapi.json",
@@ -38,68 +38,50 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def capture_oidc_token(request: Request, call_next):
+    """Stash the Vercel OIDC token into a contextvar so adapter code can
+    exchange it for AWS creds. Vercel injects it as the `x-vercel-oidc-token`
+    header on every Function invocation."""
+    token = request.headers.get("x-vercel-oidc-token")
+    if token:
+        reset_token = _aws_creds.oidc_token.set(token)
+        try:
+            return await call_next(request)
+        finally:
+            _aws_creds.oidc_token.reset(reset_token)
+    return await call_next(request)
+
+
 @app.get("/api/debug/env")
-async def debug_env() -> dict[str, Any]:
-    """Diagnostic — lists Vercel/AWS env var presence (NEVER values).
-    Used to verify whether VERCEL_OIDC_TOKEN is being injected."""
+async def debug_env(request: Request) -> dict[str, Any]:
+    """Diagnostic — Vercel/AWS env presence + OIDC header presence (never values)."""
     keys_to_check = [
         "VERCEL_OIDC_TOKEN",
-        "VERCEL_ENV",
-        "VERCEL_URL",
-        "VERCEL_REGION",
-        "VERCEL_DEPLOYMENT_ID",
         "POSTGRES_AWS_ROLE_ARN",
         "POSTGRES_PGHOST",
         "DYNAMODB_AWS_ROLE_ARN",
         "DYNAMODB_TABLE_NAME",
         "AWS_REGION",
-        "AWS_LAMBDA_FUNCTION_NAME",
         "CRON_SECRET",
     ]
-    present = {}
-    for k in keys_to_check:
-        v = os.environ.get(k)
-        if v:
-            present[k] = f"set ({len(v)} chars)"
-        else:
-            present[k] = "MISSING"
-    vercel_keys = sorted([k for k in os.environ if k.startswith("VERCEL_")])
-    aws_keys = sorted([k for k in os.environ if k.startswith("AWS_") or k.startswith("POSTGRES_") or k.startswith("DYNAMODB_")])
-    api_url = os.environ.get("AWS_LAMBDA_METADATA_API", "")
-    token = os.environ.get("AWS_LAMBDA_METADATA_TOKEN", "")
-    probes: dict[str, Any] = {}
-    if api_url:
-        base = api_url if api_url.startswith(("http://", "https://")) else f"http://{api_url}"
-        import httpx as _httpx
-        candidate_paths = [
-            "/",
-            "/credentials",
-            "/.aws/credentials",
-            "/aws/credentials",
-            "/aws/iam/credentials",
-            "/oidc/token",
-            "/identity-token",
-        ]
-        for path in candidate_paths:
-            url = base.rstrip("/") + path
-            try:
-                with _httpx.Client(timeout=3.0) as c:
-                    r = c.get(url, headers={"Authorization": token} if token else {})
-                    body = r.text[:200]
-                    probes[path] = {"status": r.status_code, "body": body}
-            except Exception as e:
-                probes[path] = {"error": str(e)[:200]}
+    present = {
+        k: f"set ({len(v)} chars)" if (v := os.environ.get(k)) else "MISSING"
+        for k in keys_to_check
+    }
+    header_token = request.headers.get("x-vercel-oidc-token")
+    cv_token = _aws_creds.oidc_token.get()
     return {
-        "checked": present,
-        "all_vercel_keys": vercel_keys,
-        "all_aws_postgres_dynamo_keys": aws_keys,
-        "lambda_metadata_api_value": api_url,
-        "probes": probes,
+        "env": present,
+        "oidc_header_present": bool(header_token),
+        "oidc_header_length": len(header_token) if header_token else 0,
+        "oidc_contextvar_set": bool(cv_token),
+        "all_headers": sorted(request.headers.keys()),
     }
 
 
 @app.get("/api/health")
-async def health() -> dict[str, Any]:
+async def health(request: Request) -> dict[str, Any]:
     aurora_state: dict[str, Any]
     try:
         aurora_state = await aurora.ping()
@@ -119,7 +101,7 @@ async def health() -> dict[str, Any]:
         "region": os.environ.get("AWS_REGION")
         or os.environ.get("POSTGRES_AWS_REGION")
         or "unset",
-        "oidc": "present" if os.environ.get("VERCEL_OIDC_TOKEN") else "missing",
+        "oidc": "present" if request.headers.get("x-vercel-oidc-token") else "missing",
     }
 
 
