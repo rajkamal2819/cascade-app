@@ -233,6 +233,49 @@ async def _seed_demo_events_inner(
     return {"ok": True, "events_inserted": inserted}
 
 
+@router.post("/backfill-embeddings")
+async def backfill_embeddings(
+    key: str | None = Query(default=None),
+    x_cron_secret: str | None = Header(default=None),
+    limit: int = Query(default=64, ge=1, le=128),
+) -> dict[str, Any]:
+    """One-shot Voyage embed pass for events missing a vector. Batches up to
+    `limit` rows in a single Voyage call (1 request → stays inside the 3-RPM
+    free-tier cap). Idempotent — only embeds rows where embedding IS NULL."""
+    _check_secret(key, x_cron_secret)
+    try:
+        from embed.text import embed_documents
+    except Exception as e:
+        raise HTTPException(500, f"voyage import failed: {e}")
+
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            "SELECT id, title, body FROM events WHERE embedding IS NULL "
+            "ORDER BY published_at DESC LIMIT $1",
+            limit,
+        )
+        if not rows:
+            return {"ok": True, "embedded": 0, "remaining": 0}
+
+        texts = [(r["title"] or "") + ". " + (r["body"] or "") for r in rows]
+        try:
+            vectors = await embed_documents(texts)
+        except Exception as e:
+            raise HTTPException(502, f"voyage embed failed: {type(e).__name__}: {e}")
+
+        for r, v in zip(rows, vectors):
+            await conn.execute(
+                "UPDATE events SET embedding = $1::vector WHERE id = $2",
+                "[" + ",".join(f"{x:.6f}" for x in v) + "]",
+                r["id"],
+            )
+        remaining = await conn.fetchval(
+            "SELECT COUNT(*) FROM events WHERE embedding IS NULL"
+        )
+    return {"ok": True, "embedded": len(rows), "remaining": int(remaining or 0)}
+
+
 @router.get("/info")
 async def info() -> dict[str, Any]:
     """Public — counts per table. No secret needed (just rowcounts)."""

@@ -65,6 +65,10 @@ async def debug_env(request: Request) -> dict[str, Any]:
         "DYNAMODB_TABLE_NAME",
         "AWS_REGION",
         "CRON_SECRET",
+        "GEMINI_API_KEY",
+        "VOYAGE_API_KEY",
+        "GEMINI_MODEL",
+        "GEMINI_GEO_MODEL",
     ]
     present = {
         k: f"set ({len(v)} chars)" if (v := os.environ.get(k)) else "MISSING"

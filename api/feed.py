@@ -196,39 +196,101 @@ class SearchBody(BaseModel):
 
 @router.post("/search")
 async def search(body: SearchBody) -> dict[str, Any]:
-    """Postgres full-text search over title + body. Voyage rerank-2.5 layers
-    on top once VOYAGE_API_KEY is wired."""
+    """Hybrid retrieval: pgvector cosine + Postgres tsvector FTS, fused via
+    Reciprocal Rank Fusion, then reranked with Voyage rerank-2.5. Falls back
+    to FTS-only if Voyage / embedding is unavailable."""
     cutoff = datetime.now(timezone.utc) - timedelta(days=body.days_back)
     pool = await aurora.get_pool()
-    clauses = ["published_at >= $1", "to_tsvector('english', title || ' ' || COALESCE(body,'')) @@ websearch_to_tsquery('english', $2)"]
-    params: list[Any] = [cutoff, body.query]
+
+    # ------------------------------------------------ embed query (best-effort)
+    query_vec: list[float] | None = None
+    try:
+        from embed.text import embed_query
+        query_vec = await embed_query(body.query)
+    except Exception:
+        query_vec = None
+
+    # ------------------------------------------------------------ candidates --
+    fts_params: list[Any] = [cutoff, body.query]
+    fts_filters = ["published_at >= $1",
+                   "to_tsvector('english', title || ' ' || COALESCE(body,'')) @@ websearch_to_tsquery('english', $2)"]
     if body.sector:
-        params.append(body.sector)
-        clauses.append(f"${len(params)} = ANY(sectors)")
-    sql = (
-        "SELECT id, title, tickers, sectors, impact, source_type, published_at, "
+        fts_params.append(body.sector)
+        fts_filters.append(f"${len(fts_params)} = ANY(sectors)")
+    fts_sql = (
+        "SELECT id, title, body, tickers, sectors, impact, source_type, published_at, "
         "       ts_rank(to_tsvector('english', title || ' ' || COALESCE(body,'')), "
         "               websearch_to_tsquery('english', $2)) AS score "
-        f"FROM events WHERE {' AND '.join(clauses)} "
-        f"ORDER BY score DESC, published_at DESC LIMIT {body.limit}"
+        f"FROM events WHERE {' AND '.join(fts_filters)} "
+        f"ORDER BY score DESC, published_at DESC LIMIT 50"
     )
+
     async with pool.acquire() as conn:
-        rows = await conn.fetch(sql, *params)
-    hits = [
-        {
-            "id": str(r["id"]),
-            "headline": r["title"] or "",
-            "tickers": list(r["tickers"] or []),
-            "sector": (list(r["sectors"]) or [""])[0],
-            "impact": _impact_bucket(r["impact"]),
-            "source_type": r["source_type"] or "",
-            "published_at": r["published_at"].isoformat() if r["published_at"] else "",
-            "rerank_score": float(r["score"] or 0),
+        fts_rows = await conn.fetch(fts_sql, *fts_params)
+
+        vec_rows: list[Any] = []
+        if query_vec is not None:
+            vec_params: list[Any] = [cutoff, "[" + ",".join(f"{x:.6f}" for x in query_vec) + "]"]
+            vec_filters = ["published_at >= $1", "embedding IS NOT NULL"]
+            if body.sector:
+                vec_params.append(body.sector)
+                vec_filters.append(f"${len(vec_params)} = ANY(sectors)")
+            vec_sql = (
+                "SELECT id, title, body, tickers, sectors, impact, source_type, published_at, "
+                "       1 - (embedding <=> $2::vector) AS score "
+                f"FROM events WHERE {' AND '.join(vec_filters)} "
+                "ORDER BY embedding <=> $2::vector LIMIT 50"
+            )
+            try:
+                vec_rows = await conn.fetch(vec_sql, *vec_params)
+            except Exception:
+                vec_rows = []
+
+    # -------------------------------------------------- Reciprocal Rank Fusion
+    K = 60
+    fused: dict[str, dict[str, Any]] = {}
+    for rank, r in enumerate(fts_rows):
+        eid = str(r["id"])
+        fused.setdefault(eid, {"row": dict(r), "score": 0.0})
+        fused[eid]["score"] += 1.0 / (K + rank + 1)
+    for rank, r in enumerate(vec_rows):
+        eid = str(r["id"])
+        fused.setdefault(eid, {"row": dict(r), "score": 0.0})
+        fused[eid]["score"] += 1.0 / (K + rank + 1)
+    candidates = sorted(fused.values(), key=lambda x: -x["score"])[: max(body.limit * 2, 20)]
+
+    # ----------------------------------------------------- Voyage rerank-2.5 --
+    try:
+        from embed.rerank import rerank_dicts
+        docs = [
+            {
+                "id": str(c["row"]["id"]),
+                "text": (c["row"]["title"] or "") + ". " + (c["row"]["body"] or ""),
+                "row": c["row"],
+                "rrf": c["score"],
+            }
+            for c in candidates
+        ]
+        reranked = await rerank_dicts(body.query, docs, text_field="text", top_k=body.limit)
+        ordered = [(d["row"], float(d.get("rerank_score") or 0.0)) for d in reranked]
+    except Exception:
+        ordered = [(c["row"], float(c["score"])) for c in candidates[: body.limit]]
+
+    hits: list[dict[str, Any]] = []
+    for row, score in ordered:
+        hit = {
+            "id": str(row["id"]),
+            "headline": row.get("title") or "",
+            "tickers": list(row.get("tickers") or []),
+            "sector": (list(row.get("sectors") or []) or [""])[0],
+            "impact": _impact_bucket(row.get("impact")),
+            "source_type": row.get("source_type") or "",
+            "published_at": row["published_at"].isoformat() if row.get("published_at") else "",
+            "rerank_score": score,
         }
-        for r in rows
-    ]
-    if body.impact:
-        hits = [h for h in hits if h["impact"] == body.impact]
+        if body.impact and hit["impact"] != body.impact:
+            continue
+        hits.append(hit)
     return {"query": body.query, "events": hits, "count": len(hits)}
 
 
@@ -605,13 +667,19 @@ async def cascade_society(
 
 @router.get("/stream")
 async def stream(request: Request) -> EventSourceResponse:
-    """SSE channel. For now: handshake + backfill + heartbeat. Aurora
-    LISTEN/NOTIFY wiring layers in once event ingestion is online."""
+    """SSE channel. Handshake → backfill → Aurora LISTEN/NOTIFY live push.
+
+    Holds one asyncpg connection open with LISTEN events_new for the duration
+    of the request. Every INSERT into the events table fires the trigger that
+    calls pg_notify, which lands on this connection, which yields an SSE event.
+    Vercel Hobby caps function duration at 60s — the browser EventSource
+    auto-reconnects on close, so the SSE stays effectively continuous."""
 
     async def gen() -> AsyncIterator[dict[str, Any]]:
         yield {"event": "ready", "data": json.dumps({"ok": True})}
-        # Backfill recent events.
         pool = await aurora.get_pool()
+
+        # Backfill recent events first so the UI populates immediately.
         async with pool.acquire() as conn:
             rows = await conn.fetch(
                 "SELECT id, title, body, url, source_type, published_at, ingested_at, "
@@ -621,11 +689,62 @@ async def stream(request: Request) -> EventSourceResponse:
             cascadable = await _cascadable_tickers(conn)
         events = [_serialize_event(dict(r), cascadable) for r in rows]
         yield {"event": "backfill", "data": json.dumps({"events": events})}
-        while True:
-            if await request.is_disconnected():
-                break
-            await asyncio.sleep(15)
-            yield {"event": "heartbeat", "data": json.dumps({"ts": datetime.now(timezone.utc).isoformat()})}
+
+        # Now hold a dedicated connection open for LISTEN.
+        queue: asyncio.Queue[str] = asyncio.Queue()
+
+        def _on_notify(conn, pid, channel, payload):
+            try:
+                queue.put_nowait(payload)
+            except Exception:
+                pass
+
+        try:
+            conn = await pool.acquire()
+        except Exception:
+            conn = None
+
+        if conn is None:
+            # Fall back to heartbeat-only loop.
+            while True:
+                if await request.is_disconnected():
+                    return
+                await asyncio.sleep(15)
+                yield {"event": "heartbeat",
+                       "data": json.dumps({"ts": datetime.now(timezone.utc).isoformat()})}
+
+        try:
+            await conn.add_listener("events_new", _on_notify)
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    event_id = await asyncio.wait_for(queue.get(), timeout=15.0)
+                except asyncio.TimeoutError:
+                    yield {"event": "heartbeat",
+                           "data": json.dumps({"ts": datetime.now(timezone.utc).isoformat()})}
+                    continue
+                # Fetch full row for the freshly-inserted event.
+                try:
+                    row = await conn.fetchrow(
+                        "SELECT id, title, body, url, source_type, published_at, ingested_at, "
+                        "       tickers, sectors, impact FROM events WHERE id = $1",
+                        event_id,
+                    )
+                except Exception:
+                    row = None
+                if row:
+                    yield {"event": "event",
+                           "data": json.dumps(_serialize_event(dict(row), cascadable))}
+        finally:
+            try:
+                await conn.remove_listener("events_new", _on_notify)
+            except Exception:
+                pass
+            try:
+                await pool.release(conn)
+            except Exception:
+                pass
 
     return EventSourceResponse(gen())
 

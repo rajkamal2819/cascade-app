@@ -236,12 +236,21 @@ Cascade/
 | Phase | Title | State |
 |---|---|---|
 | 1 | AWS account + DBs provisioned via Vercel Marketplace | ✅ |
-| 2 | Repo bootstrap + first Vercel deploy | 🟡 in progress |
-| 3 | Aurora schema (pgvector + PostGIS + recursive CTE) | ⏳ |
-| 4 | Data adapter layer (db/aurora.py + db/dynamo.py) | ⏳ |
-| 5 | FastAPI → Vercel Functions + Cron Jobs | ⏳ |
-| 6 | DynamoDB Streams → EventBridge Pipe → SSE webhook | ⏳ |
-| 7 | Submission polish (video + bonus content + screenshots) | ⏳ |
+| 2 | Repo bootstrap + first Vercel deploy | ✅ |
+| 3 | Aurora schema (pgvector + PostGIS + recursive CTE) | ✅ |
+| 4 | Data adapter layer (db/aurora.py + db/dynamo.py) | ✅ |
+| 5 | FastAPI → Vercel Functions + Cron Jobs | ✅ |
+| 6 | Gemini society + narrative + geo-cascade | ✅ |
+| 7 | Voyage embeddings + hybrid search + rerank-2.5 | ✅ |
+| 8 | Aurora LISTEN/NOTIFY live SSE channel | ✅ |
+| 9 | DynamoDB Streams → EventBridge Pipe → SSE webhook | ⏳ AWS Console wiring |
+| 10 | Submission polish (video + bonus content + screenshots) | ⏳ |
+
+---
+
+## Significant updates during the H0 submission period (per Devpost rules)
+
+> Cascade is built on a prior MongoDB/GCP iteration. **All AWS Databases and Vercel integration work was done between May 27 and June 29, 2026** — every commit in this repo is in-window evidence. Specifically: the Aurora PostgreSQL schema (`pgvector` HNSW + PostGIS + `WITH RECURSIVE` cascade walk + `LISTEN/NOTIFY` trigger), the DynamoDB single-table design with PK/SK prefixes for events_stream / user_memory / watchlists, the OIDC-based per-request AWS credential exchange (`db/_aws_creds.py`), the migration of the FastAPI app to Vercel Python Serverless Functions via `mangum` (`api/index.py`), the dual-database SSE pipeline (Aurora LISTEN/NOTIFY + DynamoDB Streams → EventBridge), the Gemini geo-cascade for tickerless events validated against the Aurora company universe, the Voyage hybrid search (pgvector cosine + tsvector + Reciprocal Rank Fusion + rerank-2.5), and the v0/Vercel Marketplace AWS Databases integration are all new work. The Next.js frontend shell was carried over; the entire backend, the AWS data layer, and the Vercel-native deployment surface were built during the H0 submission window.
 
 ---
 

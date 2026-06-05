@@ -88,6 +88,23 @@ DDL = [
     ON events USING hnsw (embedding vector_cosine_ops)
     WITH (m = 16, ef_construction = 64)
     """,
+    # LISTEN/NOTIFY trigger: every event INSERT broadcasts the new row id on
+    # channel `events_new`. The SSE Vercel Function holds a Postgres connection
+    # open with LISTEN and re-emits over the wire — Aurora becomes the live bus.
+    """
+    CREATE OR REPLACE FUNCTION notify_event_inserted() RETURNS TRIGGER AS $$
+    BEGIN
+        PERFORM pg_notify('events_new', NEW.id::text);
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql
+    """,
+    "DROP TRIGGER IF EXISTS trg_events_notify ON events",
+    """
+    CREATE TRIGGER trg_events_notify
+    AFTER INSERT ON events
+    FOR EACH ROW EXECUTE FUNCTION notify_event_inserted()
+    """,
 ]
 
 

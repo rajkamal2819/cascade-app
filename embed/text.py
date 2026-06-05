@@ -18,7 +18,7 @@ from typing import Literal
 import voyageai
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
-MODEL = os.environ.get("VOYAGE_TEXT_MODEL", "voyage-3-large")
+MODEL = os.environ.get("VOYAGE_TEXT_MODEL", "voyage-4")
 DIMS = 1024
 MAX_BATCH = 128  # Voyage limit per request
 
@@ -80,19 +80,3 @@ async def embed_document(text: str) -> list[float]:
     return (await embed_documents([text]))[0]
 
 
-if __name__ == "__main__":
-    # Smoke test: python -m embed.text "AI capex slowdown"
-    import sys
-
-    from workers._common import load_dotenv_once
-
-    load_dotenv_once()
-    q = " ".join(sys.argv[1:]) or "Apple iPhone sales decline"
-
-    async def main():
-        v = await embed_query(q)
-        print(f"query: {q!r}")
-        print(f"model: {MODEL}  dims: {len(v)}")
-        print(f"first 4: {v[:4]}")
-
-    asyncio.run(main())
