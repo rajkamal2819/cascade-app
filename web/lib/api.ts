@@ -1,8 +1,9 @@
 // Typed fetch wrappers for the Cascade FastAPI backend.
-// In dev, NEXT_PUBLIC_API_URL points at http://localhost:3000/api.
-// In prod, it points at the Vercel Function URL (same origin under /api).
+// All routes are served from the same Vercel project under `/api/*` (see
+// vercel.json rewrites). Defaulting to "/api" makes the browser request
+// same-origin — no CORS, no local-network prompt.
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 
 export type Event = {
   id: string;
