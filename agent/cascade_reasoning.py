@@ -96,16 +96,28 @@ async def synthesize_cascade(
     try:
         import google.genai as genai
         client = _get_genai()
+        cfg_kwargs: dict[str, Any] = {
+            "response_mime_type": "application/json",
+            "temperature": 0.1,
+            "max_output_tokens": 3000,
+        }
+        # Disable Flash's thinking step so the whole budget goes to the JSON
+        # response. Matches the society agents — without this, large cascades
+        # truncate mid-JSON and json.loads fails silently.
+        try:
+            cfg_kwargs["thinking_config"] = genai.types.ThinkingConfig(thinking_budget=0)
+        except Exception:
+            pass
         response = await client.aio.models.generate_content(
             model=model_name,
             contents=prompt,
-            config=genai.types.GenerateContentConfig(
-                response_mime_type="application/json",
-                temperature=0.1,
-                max_output_tokens=2048,
-            ),
+            config=genai.types.GenerateContentConfig(**cfg_kwargs),
         )
-        raw = response.text.strip()
+        raw = (response.text or "").strip()
+        # Defensive: strip ```json fences if Gemini ignores response_mime_type.
+        if raw.startswith("```"):
+            raw = raw.strip("`")
+            raw = raw[len("json"):].lstrip() if raw.lower().startswith("json") else raw
         result = json.loads(raw)
         result["_source"] = "gemini"
         result["_model"] = model_name
