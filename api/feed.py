@@ -1,0 +1,482 @@
+"""
+Lean Aurora-backed routes powering the Cascade UI.
+
+Implements the minimum surface the Next.js app calls so the live deployment
+can show feed + cascade + search + stats + memory end-to-end. Full hybrid
+search with Voyage rerank, Gemini synthesis, and DynamoDB-Streams-driven
+SSE come online as their secrets / wiring land.
+
+    GET    /api/events                              — feed
+    GET    /api/events/{id}                         — single event
+    GET    /api/stats                               — dashboard counts
+    POST   /api/search                              — Postgres FTS for now
+    POST   /api/cascade                             — recursive-CTE cascade build
+    GET    /api/cascade/by-event/{id}               — alias for the POST shape
+    GET    /api/cascade/by-event/{id}/society       — placeholder (no Gemini yet)
+    GET    /api/cascade/by-event/{id}/narrative     — placeholder (no Gemini yet)
+    GET    /api/stream                              — SSE heartbeat
+    POST   /api/memory/cascade-view                 — DynamoDB single-table
+    GET    /api/memory/recent                       — DynamoDB
+    DELETE /api/memory/{device_id}                  — DynamoDB
+"""
+
+from __future__ import annotations
+
+import asyncio
+import json
+from datetime import datetime, timedelta, timezone
+from typing import Any, AsyncIterator
+
+from boto3.dynamodb.conditions import Key
+from fastapi import APIRouter, HTTPException, Query, Request
+from pydantic import BaseModel, Field
+from sse_starlette.sse import EventSourceResponse
+
+from db import aurora, dynamo
+from db.schema import CASCADE_WALK_SQL
+
+router = APIRouter(prefix="/api", tags=["feed"])
+
+
+def _impact_bucket(score: float | None) -> str:
+    if score is None:
+        return "low"
+    if score >= 0.75:
+        return "critical"
+    if score >= 0.5:
+        return "high"
+    if score >= 0.25:
+        return "medium"
+    return "low"
+
+
+def _serialize_event(row: dict, cascadable: set[str] | None = None) -> dict[str, Any]:
+    tickers = list(row.get("tickers") or [])
+    sectors = list(row.get("sectors") or [])
+    has_cascade = bool(cascadable and any(t in cascadable for t in tickers))
+    return {
+        "id": str(row["id"]),
+        "headline": row.get("title") or "",
+        "text": row.get("body") or "",
+        "tickers": tickers,
+        "entities": [],
+        "sector": sectors[0] if sectors else "",
+        "impact": _impact_bucket(row.get("impact")),
+        "source_type": row.get("source_type") or "",
+        "source_url": row.get("url") or "",
+        "published_at": row["published_at"].isoformat() if row.get("published_at") else None,
+        "ingested_at": row["ingested_at"].isoformat() if row.get("ingested_at") else None,
+        "has_cascade": has_cascade,
+        "replay": "",
+    }
+
+
+async def _cascadable_tickers(conn) -> set[str]:
+    rows = await conn.fetch("SELECT DISTINCT from_ticker FROM relationships")
+    return {r["from_ticker"] for r in rows}
+
+
+# ---------------------------------------------------------------- events ----
+
+@router.get("/events")
+async def list_events(
+    ticker: str | None = None,
+    sector: str | None = None,
+    impact: str | None = None,
+    source_type: str | None = None,
+    hours_back: int = Query(default=24, ge=1, le=24 * 90),
+    limit: int = Query(default=100, ge=1, le=500),
+    cascadable_only: bool = Query(default=False),
+) -> dict[str, Any]:
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_back)
+    pool = await aurora.get_pool()
+    clauses = ["published_at >= $1"]
+    params: list[Any] = [cutoff]
+    if ticker:
+        params.append(ticker.upper())
+        clauses.append(f"${len(params)} = ANY(tickers)")
+    if sector:
+        params.append(sector)
+        clauses.append(f"${len(params)} = ANY(sectors)")
+    if source_type:
+        params.append(source_type)
+        clauses.append(f"source_type = ${len(params)}")
+    sql = (
+        "SELECT id, title, body, url, source_type, published_at, ingested_at, "
+        "       tickers, sectors, impact "
+        f"FROM events WHERE {' AND '.join(clauses)} "
+        f"ORDER BY published_at DESC LIMIT {limit}"
+    )
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(sql, *params)
+        cascadable = await _cascadable_tickers(conn)
+    events = [_serialize_event(dict(r), cascadable) for r in rows]
+    if impact:
+        events = [e for e in events if e["impact"] == impact]
+    if cascadable_only:
+        events = [e for e in events if e["has_cascade"]]
+    return {"events": events, "count": len(events)}
+
+
+@router.get("/events/{event_id}")
+async def get_event(event_id: str) -> dict[str, Any]:
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        row = await conn.fetchrow(
+            "SELECT id, title, body, url, source_type, published_at, ingested_at, "
+            "       tickers, sectors, impact "
+            "FROM events WHERE id = $1",
+            event_id,
+        )
+        if not row:
+            raise HTTPException(404, "event not found")
+        cascadable = await _cascadable_tickers(conn)
+    return _serialize_event(dict(row), cascadable)
+
+
+# ----------------------------------------------------------------- stats ----
+
+@router.get("/stats")
+async def stats(hours_back: int = Query(default=24, ge=1, le=24 * 90)) -> dict[str, Any]:
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=hours_back)
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        total = await conn.fetchval(
+            "SELECT COUNT(*) FROM events WHERE published_at >= $1", cutoff
+        )
+        cascade_count = await conn.fetchval(
+            "SELECT COUNT(*) FROM cascades c JOIN events e ON e.id = c.event_id "
+            "WHERE e.published_at >= $1",
+            cutoff,
+        )
+        impact_rows = await conn.fetch(
+            "SELECT impact FROM events WHERE published_at >= $1", cutoff
+        )
+        sector_rows = await conn.fetch(
+            "SELECT UNNEST(sectors) AS sector FROM events WHERE published_at >= $1",
+            cutoff,
+        )
+        ticker_rows = await conn.fetch(
+            "SELECT UNNEST(tickers) AS ticker, COUNT(*) AS n "
+            "FROM events WHERE published_at >= $1 "
+            "GROUP BY ticker ORDER BY n DESC LIMIT 10",
+            cutoff,
+        )
+
+    impact_counts: dict[str, int] = {"critical": 0, "high": 0, "medium": 0, "low": 0}
+    for r in impact_rows:
+        impact_counts[_impact_bucket(r["impact"])] += 1
+    sector_counts: dict[str, int] = {}
+    for r in sector_rows:
+        if r["sector"]:
+            sector_counts[r["sector"]] = sector_counts.get(r["sector"], 0) + 1
+    top_tickers = [{"ticker": r["ticker"], "count": int(r["n"])} for r in ticker_rows]
+    return {
+        "impact_counts": impact_counts,
+        "sector_counts": sector_counts,
+        "top_tickers": top_tickers,
+        "total_events": int(total or 0),
+        "cascade_count": int(cascade_count or 0),
+        "hours_back": hours_back,
+    }
+
+
+# ---------------------------------------------------------------- search ----
+
+class SearchBody(BaseModel):
+    query: str = Field(min_length=1, max_length=500)
+    sector: str = ""
+    impact: str = ""
+    days_back: int = Field(default=7, ge=1, le=90)
+    limit: int = Field(default=10, ge=1, le=50)
+
+
+@router.post("/search")
+async def search(body: SearchBody) -> dict[str, Any]:
+    """Postgres full-text search over title + body. Voyage rerank-2.5 layers
+    on top once VOYAGE_API_KEY is wired."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=body.days_back)
+    pool = await aurora.get_pool()
+    clauses = ["published_at >= $1", "to_tsvector('english', title || ' ' || COALESCE(body,'')) @@ websearch_to_tsquery('english', $2)"]
+    params: list[Any] = [cutoff, body.query]
+    if body.sector:
+        params.append(body.sector)
+        clauses.append(f"${len(params)} = ANY(sectors)")
+    sql = (
+        "SELECT id, title, tickers, sectors, impact, source_type, published_at, "
+        "       ts_rank(to_tsvector('english', title || ' ' || COALESCE(body,'')), "
+        "               websearch_to_tsquery('english', $2)) AS score "
+        f"FROM events WHERE {' AND '.join(clauses)} "
+        f"ORDER BY score DESC, published_at DESC LIMIT {body.limit}"
+    )
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(sql, *params)
+    hits = [
+        {
+            "id": str(r["id"]),
+            "headline": r["title"] or "",
+            "tickers": list(r["tickers"] or []),
+            "sector": (list(r["sectors"]) or [""])[0],
+            "impact": _impact_bucket(r["impact"]),
+            "source_type": r["source_type"] or "",
+            "published_at": r["published_at"].isoformat() if r["published_at"] else "",
+            "rerank_score": float(r["score"] or 0),
+        }
+        for r in rows
+    ]
+    if body.impact:
+        hits = [h for h in hits if h["impact"] == body.impact]
+    return {"query": body.query, "events": hits, "count": len(hits)}
+
+
+# --------------------------------------------------------------- cascade ----
+
+class CascadeBody(BaseModel):
+    event_id: str
+    max_hops: int = Field(default=3, ge=1, le=5)
+    top_k: int = Field(default=15, ge=1, le=50)
+    device_id: str = ""
+
+
+async def _build_cascade(conn, event_id: str, max_hops: int, top_k: int) -> dict[str, Any]:
+    event = await conn.fetchrow(
+        "SELECT id, title, tickers, sectors, impact, source_type, published_at "
+        "FROM events WHERE id = $1",
+        event_id,
+    )
+    if not event:
+        raise HTTPException(404, "event not found")
+    tickers = list(event["tickers"] or [])
+    root = {
+        "id": str(event["id"]),
+        "headline": event["title"] or "",
+        "tickers": tickers,
+        "impact": _impact_bucket(event["impact"]),
+        "sector": (list(event["sectors"]) or [""])[0],
+        "published_at": event["published_at"].isoformat() if event["published_at"] else "",
+        "source_type": event["source_type"] or "",
+    }
+    if not tickers:
+        return {
+            "root": root,
+            "nodes": [],
+            "edges": [],
+            "hop_counts": {},
+            "message": "no tickers on root event",
+            "fallback": "semantic_no_tickers",
+            "narrative": "",
+            "severity": "",
+            "geo_cascade": None,
+        }
+
+    walk = await conn.fetch(CASCADE_WALK_SQL, tickers, max_hops, 0.3)
+
+    # Pull company display info for all referenced tickers in one query.
+    referenced = {r["ticker"] for r in walk} | set(tickers)
+    if referenced:
+        co_rows = await conn.fetch(
+            "SELECT ticker, name, sector FROM companies WHERE ticker = ANY($1::TEXT[])",
+            list(referenced),
+        )
+        co = {r["ticker"]: dict(r) for r in co_rows}
+    else:
+        co = {}
+
+    # Root nodes (hop 0).
+    nodes: list[dict[str, Any]] = []
+    for t in tickers:
+        c = co.get(t, {})
+        nodes.append({
+            "ticker": t,
+            "company": c.get("name") or "",
+            "sector": c.get("sector") or "",
+            "level": "root",
+            "hop": 0,
+            "relationship_type": "root",
+            "cascade_score": 1.0,
+            "why": "root of cascade",
+            "event_id": str(event["id"]),
+            "direction": -1 if _impact_bucket(event["impact"]) in ("critical", "high") else 0,
+        })
+
+    # Deduplicate downstream nodes by ticker, keep best cumulative_weight.
+    seen: dict[str, dict[str, Any]] = {}
+    edges: list[dict[str, Any]] = []
+    for r in walk:
+        edges.append({
+            "from": r["path_from"],
+            "to": r["ticker"],
+            "type": r["type"],
+            "weight": float(r["edge_weight"]),
+            "hop": int(r["hop"]),
+        })
+        score = float(r["cumulative_weight"])
+        existing = seen.get(r["ticker"])
+        if not existing or score > existing["cascade_score"]:
+            c = co.get(r["ticker"], {})
+            seen[r["ticker"]] = {
+                "ticker": r["ticker"],
+                "company": c.get("name") or "",
+                "sector": c.get("sector") or "",
+                "level": "downstream",
+                "hop": int(r["hop"]),
+                "relationship_type": r["type"],
+                "cascade_score": score,
+                "why": f"{r['type']} of {r['path_from']} (weight {r['edge_weight']:.2f})",
+                "event_id": "",
+                "direction": -1 if _impact_bucket(event["impact"]) in ("critical", "high") else 0,
+            }
+
+    # Sort and clip downstream.
+    downstream = sorted(seen.values(), key=lambda n: (n["hop"], -n["cascade_score"]))[: top_k]
+    nodes.extend(downstream)
+
+    hop_counts: dict[str, int] = {}
+    for n in nodes:
+        key = f"L{n['hop']}"
+        hop_counts[key] = hop_counts.get(key, 0) + 1
+
+    return {
+        "root": root,
+        "nodes": nodes,
+        "edges": edges,
+        "hop_counts": hop_counts,
+        "message": "",
+        "fallback": "",
+        "narrative": "",
+        "severity": "",
+        "geo_cascade": None,
+    }
+
+
+@router.post("/cascade")
+async def post_cascade(body: CascadeBody) -> dict[str, Any]:
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        return await _build_cascade(conn, body.event_id, body.max_hops, body.top_k)
+
+
+@router.get("/cascade/by-event/{event_id}")
+async def get_cascade_by_event(event_id: str) -> dict[str, Any]:
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        return await _build_cascade(conn, event_id, 3, 15)
+
+
+@router.get("/cascade/by-event/{event_id}/narrative")
+async def cascade_narrative(event_id: str) -> dict[str, Any]:
+    """Placeholder until Gemini is wired. Returns ready=false so the UI
+    keeps polling without blocking."""
+    return {
+        "ready": False,
+        "narrative": "",
+        "severity": "",
+        "risk_factors": [],
+        "confidence": 0.0,
+    }
+
+
+@router.get("/cascade/by-event/{event_id}/society")
+async def cascade_society(event_id: str) -> dict[str, Any]:
+    """Placeholder until Gemini society wiring lands. ready=false so the
+    Cascade.tsx poller stops after its window."""
+    return {
+        "ready": False,
+        "done": True,
+        "critic": None,
+        "predictor": None,
+        "memory": None,
+        "eli5": None,
+    }
+
+
+# ----------------------------------------------------------------- stream ----
+
+@router.get("/stream")
+async def stream(request: Request) -> EventSourceResponse:
+    """SSE channel. For now: handshake + backfill + heartbeat. Aurora
+    LISTEN/NOTIFY wiring layers in once event ingestion is online."""
+
+    async def gen() -> AsyncIterator[dict[str, Any]]:
+        yield {"event": "ready", "data": json.dumps({"ok": True})}
+        # Backfill recent events.
+        pool = await aurora.get_pool()
+        async with pool.acquire() as conn:
+            rows = await conn.fetch(
+                "SELECT id, title, body, url, source_type, published_at, ingested_at, "
+                "       tickers, sectors, impact "
+                "FROM events ORDER BY published_at DESC LIMIT 50"
+            )
+            cascadable = await _cascadable_tickers(conn)
+        events = [_serialize_event(dict(r), cascadable) for r in rows]
+        yield {"event": "backfill", "data": json.dumps({"events": events})}
+        while True:
+            if await request.is_disconnected():
+                break
+            await asyncio.sleep(15)
+            yield {"event": "heartbeat", "data": json.dumps({"ts": datetime.now(timezone.utc).isoformat()})}
+
+    return EventSourceResponse(gen())
+
+
+# ----------------------------------------------------------------- memory ----
+
+class MemoryViewBody(BaseModel):
+    device_id: str
+    event_id: str
+    root_ticker: str = ""
+    sector: str = ""
+    headline: str = ""
+
+
+@router.post("/memory/cascade-view")
+async def log_cascade_view(body: MemoryViewBody) -> dict[str, Any]:
+    now = datetime.now(timezone.utc).isoformat()
+    async with dynamo.get_table() as table:
+        await table.put_item(Item={
+            "PK": dynamo.user_pk(body.device_id),
+            "SK": now,
+            "event_id": body.event_id,
+            "root_ticker": body.root_ticker,
+            "sector": body.sector,
+            "headline": body.headline,
+            "ttl": int((datetime.now(timezone.utc) + timedelta(days=30)).timestamp()),
+        })
+    return {"ok": True}
+
+
+@router.get("/memory/recent")
+async def recent_memory(
+    device_id: str,
+    limit: int = Query(default=20, ge=1, le=100),
+) -> dict[str, Any]:
+    async with dynamo.get_table() as table:
+        resp = await table.query(
+            KeyConditionExpression=Key("PK").eq(dynamo.user_pk(device_id)),
+            ScanIndexForward=False,
+            Limit=limit,
+        )
+    items = [
+        {
+            "event_id": i.get("event_id", ""),
+            "root_ticker": i.get("root_ticker", ""),
+            "sector": i.get("sector", ""),
+            "headline": i.get("headline", ""),
+            "viewed_at": i.get("SK", ""),
+        }
+        for i in resp.get("Items", [])
+    ]
+    return {"items": items, "count": len(items)}
+
+
+@router.delete("/memory/{device_id}")
+async def forget_memory(device_id: str) -> dict[str, Any]:
+    deleted = 0
+    async with dynamo.get_table() as table:
+        resp = await table.query(
+            KeyConditionExpression=Key("PK").eq(dynamo.user_pk(device_id)),
+        )
+        for item in resp.get("Items", []):
+            await table.delete_item(Key={"PK": item["PK"], "SK": item["SK"]})
+            deleted += 1
+    return {"ok": True, "deleted": deleted}

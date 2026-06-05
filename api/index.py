@@ -18,6 +18,7 @@ from mangum import Mangum
 
 from db import aurora, dynamo, _aws_creds
 from api.admin import router as admin_router
+from api.feed import router as feed_router
 from api.graph import router as graph_router
 
 app = FastAPI(
@@ -106,6 +107,7 @@ async def health(request: Request) -> dict[str, Any]:
 
 
 app.include_router(admin_router)
+app.include_router(feed_router)
 app.include_router(graph_router)
 
 

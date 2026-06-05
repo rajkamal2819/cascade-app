@@ -128,6 +128,95 @@ async def seed(
     }
 
 
+@router.post("/seed-demo-events")
+async def seed_demo_events(
+    key: str | None = Query(default=None),
+    x_cron_secret: str | None = Header(default=None),
+    count: int = Query(default=60, ge=1, le=500),
+    days_back: int = Query(default=14, ge=1, le=90),
+) -> dict[str, Any]:
+    """Generate `count` synthetic events spread over the last `days_back`
+    days so the UI feed has something to render until real workers ingest.
+
+    Each event is tied to 1-2 random seeded tickers and gets a realistic
+    headline template per source type. Idempotent on (source_type, source_id)
+    via the table's UNIQUE constraint.
+    """
+    _check_secret(key, x_cron_secret)
+    import random
+    rng = random.Random(2026)
+
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        co_rows = await conn.fetch(
+            "SELECT ticker, name, sector FROM companies ORDER BY market_cap DESC NULLS LAST LIMIT 60"
+        )
+        if not co_rows:
+            raise HTTPException(409, "no companies seeded yet — call /api/admin/seed first")
+        companies = [dict(r) for r in co_rows]
+
+    sources = [
+        ("sec_edgar", "{T} files {form} disclosing {topic}",
+         ["10-K", "10-Q", "8-K · Item 2.02", "8-K · Item 1.01"],
+         ["guidance revision", "material agreement", "results of operations",
+          "executive transition"]),
+        ("marketaux", "{T} {action} as {driver} rattles {sector}",
+         ["slides 3.2%", "jumps 4.1%", "drops 6.8%", "rallies 2.7%"],
+         ["margin compression", "demand softness", "supply tightness",
+          "analyst upgrade", "FX headwind"]),
+        ("reddit", "r/wallstreetbets · {T} {flavor}",
+         ["DD: thesis update", "earnings preview", "post-earnings reaction",
+          "options unusual activity"],
+         []),
+        ("yfinance", "{T} hits {milestone}",
+         ["fresh 52-week high", "52-week low", "1-year high on volume",
+          "key technical breakout"],
+         []),
+    ]
+    impacts = [0.15, 0.3, 0.5, 0.7, 0.85]
+
+    inserted = 0
+    now = datetime.now(timezone.utc)
+    async with pool.acquire() as conn:
+        for i in range(count):
+            co = rng.choice(companies)
+            src_type, tmpl, forms, drivers = rng.choice(sources)
+            form = rng.choice(forms) if forms else ""
+            driver = rng.choice(drivers) if drivers else ""
+            title = (tmpl
+                     .replace("{T}", co["ticker"])
+                     .replace("{form}", form)
+                     .replace("{topic}", driver)
+                     .replace("{action}", form)
+                     .replace("{driver}", driver)
+                     .replace("{flavor}", form)
+                     .replace("{milestone}", form)
+                     .replace("{sector}", (co["sector"] or "tech").lower()))
+            offset_minutes = rng.randint(0, days_back * 24 * 60)
+            pub = now - timedelta(minutes=offset_minutes)
+            impact = rng.choice(impacts)
+            body_text = f"{co['name']} ({co['ticker']}) — {title.lower()}. Synthetic demo event."
+            await conn.execute(
+                """
+                INSERT INTO events (source_type, source_id, title, body, url,
+                                    published_at, ingested_at, tickers, sectors, impact)
+                VALUES ($1, $2, $3, $4, $5, $6, NOW(), $7, $8, $9)
+                ON CONFLICT (source_type, source_id) DO NOTHING
+                """,
+                src_type,
+                f"demo-{i:04d}",
+                title,
+                body_text,
+                f"https://example.com/demo/{src_type}/{i}",
+                pub,
+                [co["ticker"]],
+                [co["sector"] or ""],
+                impact,
+            )
+            inserted += 1
+    return {"ok": True, "events_inserted": inserted}
+
+
 @router.get("/info")
 async def info() -> dict[str, Any]:
     """Public — counts per table. No secret needed (just rowcounts)."""
