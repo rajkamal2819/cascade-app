@@ -24,7 +24,7 @@ from api.graph import router as graph_router
 app = FastAPI(
     title="Cascade API",
     description="Real-time market cascade intelligence on Vercel + AWS Databases.",
-    version="0.8.0-mvp",
+    version="0.8.1-mvp",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
     openapi_url="/api/openapi.json",
