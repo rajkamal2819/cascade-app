@@ -34,6 +34,9 @@ from sse_starlette.sse import EventSourceResponse
 
 from db import aurora, dynamo
 from db.schema import CASCADE_WALK_SQL
+from agent import society as society_agent
+from agent import cascade_reasoning
+from agent import geo_cascade as geo_agent
 
 router = APIRouter(prefix="/api", tags=["feed"])
 
@@ -238,6 +241,128 @@ class CascadeBody(BaseModel):
     device_id: str = ""
 
 
+async def _ticker_universe(conn) -> dict[str, dict[str, Any]]:
+    """Return ticker→{name,sector} map for Gemini ticker validation."""
+    rows = await conn.fetch("SELECT ticker, name, sector FROM companies ORDER BY market_cap DESC NULLS LAST LIMIT 200")
+    return {r["ticker"]: {"name": r["name"] or "", "sector": r["sector"] or ""} for r in rows}
+
+
+async def _build_geo_cascade(conn, event_row: dict[str, Any], root: dict[str, Any]) -> dict[str, Any]:
+    """Tickerless event path: ask Gemini to infer affected tickers, then walk
+    those through the same recursive CTE so the result shape stays consistent."""
+    empty = {
+        "root": root,
+        "nodes": [],
+        "edges": [],
+        "hop_counts": {},
+        "message": "no tickers on root event",
+        "fallback": "semantic_no_tickers",
+        "narrative": "",
+        "severity": "",
+        "geo_cascade": None,
+    }
+    by_ticker = await _ticker_universe(conn)
+    if not by_ticker:
+        return empty
+    gemini_event = {
+        "headline": event_row.get("title") or "",
+        "text": event_row.get("body") or "",
+        "sector": (list(event_row.get("sectors") or []) or [""])[0],
+        "impact": _impact_bucket(event_row.get("impact")),
+        "published_at": event_row.get("published_at"),
+    }
+    hypothesis = await geo_agent.gemini_geo_hypothesis_from_universe(gemini_event, by_ticker)
+    affected = hypothesis.get("affected_companies") or []
+    if not affected:
+        empty["geo_cascade"] = {
+            "event_type": hypothesis.get("event_type", "other"),
+            "regions": hypothesis.get("regions", []),
+            "sectors": hypothesis.get("sectors", []),
+            "transmission_mechanism": hypothesis.get("transmission_mechanism", ""),
+            "time_horizon": hypothesis.get("time_horizon", ""),
+            "historical_analog": hypothesis.get("historical_analog", ""),
+            "model": hypothesis.get("_model", ""),
+        }
+        return empty
+
+    # Gemini-inferred L1 nodes become the cascade seed.
+    l1_tickers = [c["ticker"] for c in affected if c.get("level", 1) == 1] or [c["ticker"] for c in affected]
+    nodes: list[dict[str, Any]] = []
+    for c in affected:
+        dir_sign = {"negative": -1, "positive": 1, "mixed": 0}.get(c.get("direction", "mixed"), 0)
+        nodes.append({
+            "ticker": c["ticker"],
+            "company": c.get("company", ""),
+            "sector": c.get("sector", ""),
+            "level": "downstream",
+            "hop": int(c.get("level", 1)),
+            "relationship_type": f"gemini_{hypothesis.get('event_type', 'other')}",
+            "cascade_score": float(c.get("confidence", 0.5)),
+            "why": c.get("mechanism", ""),
+            "event_id": "",
+            "direction": dir_sign,
+        })
+
+    # Walk one more hop through the relationships graph from the L1 seeds.
+    edges: list[dict[str, Any]] = []
+    if l1_tickers:
+        walk = await conn.fetch(CASCADE_WALK_SQL, l1_tickers, 2, 0.4)
+        seen = {n["ticker"] for n in nodes}
+        co_rows = await conn.fetch(
+            "SELECT ticker, name, sector FROM companies WHERE ticker = ANY($1::TEXT[])",
+            list({r["ticker"] for r in walk}),
+        )
+        co = {r["ticker"]: dict(r) for r in co_rows}
+        for r in walk:
+            edges.append({
+                "from": r["path_from"],
+                "to": r["ticker"],
+                "type": r["type"],
+                "weight": float(r["edge_weight"]),
+                "hop": int(r["hop"]) + 1,
+            })
+            if r["ticker"] in seen:
+                continue
+            seen.add(r["ticker"])
+            c = co.get(r["ticker"], {})
+            nodes.append({
+                "ticker": r["ticker"],
+                "company": c.get("name") or "",
+                "sector": c.get("sector") or "",
+                "level": "downstream",
+                "hop": int(r["hop"]) + 1,
+                "relationship_type": r["type"],
+                "cascade_score": float(r["cumulative_weight"]),
+                "why": f"{r['type']} of {r['path_from']} (weight {r['edge_weight']:.2f})",
+                "event_id": "",
+                "direction": 0,
+            })
+
+    hop_counts: dict[str, int] = {}
+    for n in nodes:
+        hop_counts[f"L{n['hop']}"] = hop_counts.get(f"L{n['hop']}", 0) + 1
+
+    return {
+        "root": root,
+        "nodes": nodes,
+        "edges": edges,
+        "hop_counts": hop_counts,
+        "message": hypothesis.get("transmission_mechanism", "") or "Gemini-inferred regional & sector exposure.",
+        "fallback": "gemini_geo",
+        "narrative": "",
+        "severity": "",
+        "geo_cascade": {
+            "event_type": hypothesis.get("event_type", "other"),
+            "regions": hypothesis.get("regions", []),
+            "sectors": hypothesis.get("sectors", []),
+            "transmission_mechanism": hypothesis.get("transmission_mechanism", ""),
+            "time_horizon": hypothesis.get("time_horizon", ""),
+            "historical_analog": hypothesis.get("historical_analog", ""),
+            "model": hypothesis.get("_model", ""),
+        },
+    }
+
+
 async def _build_cascade(conn, event_id: str, max_hops: int, top_k: int) -> dict[str, Any]:
     event = await conn.fetchrow(
         "SELECT id, title, tickers, sectors, impact, source_type, published_at "
@@ -257,17 +382,7 @@ async def _build_cascade(conn, event_id: str, max_hops: int, top_k: int) -> dict
         "source_type": event["source_type"] or "",
     }
     if not tickers:
-        return {
-            "root": root,
-            "nodes": [],
-            "edges": [],
-            "hop_counts": {},
-            "message": "no tickers on root event",
-            "fallback": "semantic_no_tickers",
-            "narrative": "",
-            "severity": "",
-            "geo_cascade": None,
-        }
+        return await _build_geo_cascade(conn, dict(event), root)
 
     walk = await conn.fetch(CASCADE_WALK_SQL, tickers, max_hops, 0.3)
 
@@ -365,29 +480,125 @@ async def get_cascade_by_event(event_id: str) -> dict[str, Any]:
 
 @router.get("/cascade/by-event/{event_id}/narrative")
 async def cascade_narrative(event_id: str) -> dict[str, Any]:
-    """Placeholder until Gemini is wired. Returns ready=false so the UI
-    keeps polling without blocking."""
-    return {
-        "ready": False,
-        "narrative": "",
-        "severity": "",
-        "risk_factors": [],
-        "confidence": 0.0,
-    }
+    """Gemini cascade synthesis. Cached in the `cascades` table for instant
+    second-clicks; first call takes 2-4s on Flash."""
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        cached_narrative = await conn.fetchval(
+            "SELECT narrative FROM cascades WHERE event_id = $1", event_id
+        )
+        if cached_narrative:
+            try:
+                payload = json.loads(cached_narrative)
+                payload["ready"] = True
+                payload["cached"] = True
+                return payload
+            except Exception:
+                pass
+
+        cascade = await _build_cascade(conn, event_id, 3, 15)
+        result = await cascade_reasoning.synthesize_cascade(cascade)
+        payload = {
+            "ready": True,
+            "narrative": result.get("summary", ""),
+            "severity": result.get("severity", ""),
+            "risk_factors": result.get("risk_factors", []),
+            "confidence": float(result.get("confidence", 0.5)),
+            "source": result.get("_source", "passthrough"),
+        }
+        # Cache only successful Gemini results.
+        if result.get("_source") == "gemini":
+            try:
+                await conn.execute(
+                    """
+                    INSERT INTO cascades (event_id, root_tickers, walk, narrative)
+                    VALUES ($1, $2::TEXT[], $3::jsonb, $4)
+                    ON CONFLICT (event_id) DO UPDATE SET
+                        narrative = EXCLUDED.narrative,
+                        built_at = NOW()
+                    """,
+                    event_id,
+                    list((cascade.get("root") or {}).get("tickers") or []),
+                    json.dumps(cascade, default=str),
+                    json.dumps(payload),
+                )
+            except Exception:
+                pass
+        return payload
 
 
 @router.get("/cascade/by-event/{event_id}/society")
-async def cascade_society(event_id: str) -> dict[str, Any]:
-    """Placeholder until Gemini society wiring lands. ready=false so the
-    Cascade.tsx poller stops after its window."""
-    return {
-        "ready": False,
+async def cascade_society(
+    event_id: str,
+    device_id: str | None = Query(default=None),
+) -> dict[str, Any]:
+    """Gemini agent society — Critic, Predictor, Memory, ELI5 in parallel.
+    Memory pulls the device's last 20 cascade views from DynamoDB."""
+    pool = await aurora.get_pool()
+    async with pool.acquire() as conn:
+        cached_society = await conn.fetchval(
+            "SELECT society FROM cascades WHERE event_id = $1", event_id
+        )
+        if cached_society:
+            payload = cached_society if isinstance(cached_society, dict) else json.loads(cached_society)
+            payload["ready"] = True
+            payload["done"] = True
+            payload["cached"] = True
+            return payload
+
+        cascade = await _build_cascade(conn, event_id, 3, 15)
+
+    history: list[dict[str, Any]] = []
+    if device_id:
+        try:
+            async with dynamo.get_table() as table:
+                resp = await table.query(
+                    KeyConditionExpression=Key("PK").eq(dynamo.user_pk(device_id)),
+                    ScanIndexForward=False,
+                    Limit=20,
+                )
+            history = [
+                {
+                    "root_ticker": i.get("root_ticker", ""),
+                    "sector": i.get("sector", ""),
+                    "viewed_at": i.get("SK", ""),
+                }
+                for i in resp.get("Items", [])
+            ]
+        except Exception:
+            history = []
+
+    society = await society_agent.run_society(cascade, history=history)
+    payload = {
+        "ready": True,
         "done": True,
-        "critic": None,
-        "predictor": None,
-        "memory": None,
-        "eli5": None,
+        "critic": society.get("critic"),
+        "predictor": society.get("predictor"),
+        "memory": society.get("memory"),
+        "eli5": society.get("eli5"),
     }
+
+    sources = {(society.get(k) or {}).get("_source") if isinstance(society.get(k), dict) else None
+               for k in ("critic", "predictor", "memory")}
+    if "gemini" in sources:
+        try:
+            async with pool.acquire() as conn:
+                await conn.execute(
+                    """
+                    INSERT INTO cascades (event_id, root_tickers, walk, society)
+                    VALUES ($1, $2::TEXT[], $3::jsonb, $4::jsonb)
+                    ON CONFLICT (event_id) DO UPDATE SET
+                        society = EXCLUDED.society,
+                        built_at = NOW()
+                    """,
+                    event_id,
+                    list((cascade.get("root") or {}).get("tickers") or []),
+                    json.dumps(cascade, default=str),
+                    json.dumps(payload, default=str),
+                )
+        except Exception:
+            pass
+    return payload
 
 
 # ----------------------------------------------------------------- stream ----

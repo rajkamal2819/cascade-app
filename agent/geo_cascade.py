@@ -120,6 +120,98 @@ async def _ticker_universe(db) -> tuple[list[str], dict[str, dict]]:
     return sorted(by_ticker.keys()), by_ticker
 
 
+async def gemini_geo_hypothesis_from_universe(
+    event: dict[str, Any],
+    by_ticker: dict[str, dict],
+) -> dict[str, Any]:
+    """Aurora-flavored variant: caller supplies the ticker universe directly
+    (no DB object). Validates Gemini's affected_companies against by_ticker."""
+    headline = (event.get("headline") or event.get("title") or "").strip()
+    text = (event.get("text") or event.get("body") or "").strip()[:1200]
+    sector = event.get("sector") or ""
+    impact = event.get("impact") or ""
+    published_at = str(event.get("published_at") or "")
+
+    if not (headline or text) or not by_ticker:
+        return _passthrough("empty")
+
+    prompt = GEO_PROMPT.format(
+        headline=headline[:240],
+        sector=sector,
+        impact=impact,
+        published_at=published_at,
+        text=text,
+        ticker_universe=_format_universe(by_ticker),
+    )
+
+    try:
+        import google.genai as genai
+        client = _get_genai()
+        cfg = genai.types.GenerateContentConfig(
+            response_mime_type="application/json",
+            temperature=0.2,
+            max_output_tokens=3000,
+        )
+        resp = await asyncio.wait_for(
+            client.aio.models.generate_content(
+                model=_model(),
+                contents=prompt,
+                config=cfg,
+            ),
+            timeout=GEMINI_TIMEOUT_S,
+        )
+        data = json.loads((resp.text or "").strip())
+    except asyncio.TimeoutError:
+        log.warning("geo_cascade gemini timeout")
+        return _passthrough("timeout")
+    except Exception as e:
+        log.warning("geo_cascade gemini failed: %s", e)
+        return _passthrough("error")
+
+    valid_companies = []
+    seen = set()
+    for c in (data.get("affected_companies") or [])[:12]:
+        t = (c.get("ticker") or "").upper().strip()
+        if not t or t in seen or t not in by_ticker:
+            continue
+        seen.add(t)
+        co = by_ticker[t]
+        valid_companies.append({
+            "ticker": t,
+            "company": co.get("name", ""),
+            "sector": co.get("sector", ""),
+            "level": int(c.get("level") or 1),
+            "mechanism": (c.get("mechanism") or "")[:240],
+            "direction": (c.get("direction") or "mixed").lower(),
+            "confidence": float(c.get("confidence") or 0.5),
+        })
+
+    return {
+        "event_type": (data.get("event_type") or "other"),
+        "regions": [
+            r for r in (
+                _clean_region(raw) for raw in (data.get("regions") or [])[:6]
+            ) if r is not None
+        ],
+        "sectors": [
+            {
+                "name": (s.get("name") or "")[:48],
+                "exposure": (s.get("exposure") or "other")[:32],
+                "confidence": float(s.get("confidence") or 0.5),
+            }
+            for s in (data.get("sectors") or [])[:6]
+            if s.get("name")
+        ],
+        "affected_companies": valid_companies,
+        "transmission_mechanism": (data.get("transmission_mechanism") or "")[:600],
+        "time_horizon": (data.get("time_horizon") or "")[:24],
+        "historical_analog": (data.get("historical_analog") or "")[:160],
+        "_source": "gemini",
+        "_model": _model(),
+        "_generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 def _coerce_coord(v: Any, lo: float, hi: float) -> float | None:
     """Coerce Gemini's lat/lon to a float in range, else None. Defensive — model
     occasionally emits strings, nulls, or out-of-range hallucinations."""
