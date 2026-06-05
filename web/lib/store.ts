@@ -120,7 +120,7 @@ export const useStore = create<State>((set) => ({
 
   pushBackfill: (events) =>
     set((s) => {
-      // On a cold connect the change-stream may stay quiet for minutes,
+      // On a cold connect the live channel (LISTEN/NOTIFY) may stay quiet for minutes,
       // so we stagger arrival timestamps on the first few backfill events.
       // The globe then plays a ripple-in shockwave for ~700ms instead of
       // sitting dead. Only the top-5 most-recent get stamped; the rest

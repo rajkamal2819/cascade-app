@@ -316,7 +316,7 @@ export default function TerminalPage() {
               <div className="glass pointer-events-auto rounded-2xl px-6 py-5">
                 <div className="mono text-[10px] uppercase tracking-[0.4em] text-muted">planetary nervous system</div>
                 <div className="mt-1 text-[14px] text-text">Watch news, ships, quakes &amp; filings cascade in real time</div>
-                <div className="mt-1 text-[11px] text-muted">$graphLookup · voyage rerank-2.5 · gemini</div>
+                <div className="mt-1 text-[11px] text-muted">Aurora recursive CTE · pgvector · gemini</div>
                 <div className="mt-4 mono text-[9px] uppercase tracking-widest text-muted/70">try a query</div>
                 <div className="mt-1.5 flex flex-wrap justify-center gap-1.5">
                   {EXAMPLE_QUERIES.map((q) => (

@@ -285,10 +285,10 @@ export function Cascade() {
               <Network size={13} className={cascade?.fallback === "related_events" || cascade?.fallback === "semantic_no_tickers" ? "text-muted" : "text-accent"} />
               <span className="mono text-[10px] uppercase tracking-[0.2em] text-muted">
                 {cascade?.fallback === "gemini_geo"
-                  ? "Cascade · Gemini Geo + $graphLookup"
+                  ? "Cascade · Gemini Geo + recursive CTE"
                   : cascade?.fallback === "related_events" || cascade?.fallback === "semantic_no_tickers"
-                  ? "Related · $vectorSearch"
-                  : "Cascade · $graphLookup"}
+                  ? "Related · pgvector cosine"
+                  : "Cascade · recursive CTE"}
               </span>
               {selectedId && cascadePhase !== "idle" && cascadePhase !== "ready" && (
                 <span className="mono inline-flex items-center gap-1 rounded-full bg-accent/10 px-1.5 py-0.5 text-[8px] uppercase tracking-widest text-accent">

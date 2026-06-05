@@ -46,7 +46,7 @@ function rationaleFor(rel: string, root: string, target: string, hop: number): {
   if (t === "semantic" || t.includes("semantic")) {
     return {
       headline: `${target} is semantically related to this event.`,
-      chain: `No graph edge — we matched via Atlas $vectorSearch. The text of ${target}'s recent coverage embeds close to this event in Voyage space.`,
+      chain: `No graph edge — we matched via pgvector cosine search on Aurora. The text of ${target}'s recent coverage embeds close to this event in Voyage space.`,
     };
   }
   if (t === "root") {

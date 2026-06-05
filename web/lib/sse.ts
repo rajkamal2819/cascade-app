@@ -2,7 +2,7 @@
 // into the Zustand store. The backend tags messages with:
 //   event: ready     — handshake on connect
 //   event: backfill  — recent events flushed on connect
-//   event: event     — live insert from change-stream
+//   event: event     — live insert from Aurora LISTEN/NOTIFY (or DynamoDB Streams)
 //   event: heartbeat — server-time ping every 15s
 //   event: ping      — legacy heartbeat name (kept for backwards compat)
 

@@ -22,7 +22,7 @@ type Beat = {
 const SCRIPT: Beat[] = [
   { ms: 2200, pill: "live · planetary nervous system", caption: "Cascade is watching news, ships, quakes and filings — globally, in real time." },
   { ms: 2200, pill: "scenario 1 of 3", caption: "A magnitude-6.4 earthquake just struck near Hualien, Taiwan.", action: "select-replay", replay: "taiwan-quake" },
-  { ms: 2400, pill: "$graphLookup · 3 hops", caption: "We walk the supplier graph from the epicentre — TSMC, then everyone downstream of TSMC." },
+  { ms: 2400, pill: "recursive CTE · 3 hops", caption: "We walk the supplier graph from the epicentre — TSMC, then everyone downstream of TSMC." },
   { ms: 2200, pill: "voyage rerank-2.5", caption: "A cross-encoder reranks the 50 closest nodes to keep only the most relevant exposures." },
   { ms: 2300, pill: "gemini 3 pro · synthesis", caption: "Gemini summarises the cascade and the society of agents debates it." },
   { ms: 2200, pill: "what-if", caption: "What if this quake had NOT happened? Counterfactual mode shows which nodes drop out.", action: "toggle-whatif" },

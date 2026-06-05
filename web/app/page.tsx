@@ -181,7 +181,7 @@ export default function LandingPage() {
       {/* Bottom infra credit */}
       <div className="absolute inset-x-0 bottom-4 z-10 flex justify-center">
         <p className="mono text-[9px] uppercase tracking-[0.3em] text-muted/40">
-          MongoDB Atlas · Vertex AI Gemini · Voyage AI · Google ADK · Vercel
+          AWS Aurora PostgreSQL · DynamoDB · Gemini · Voyage AI · Vercel
         </p>
       </div>
     </main>

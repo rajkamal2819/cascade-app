@@ -1,6 +1,6 @@
 // Typed fetch wrappers for the Cascade FastAPI backend.
-// In dev, NEXT_PUBLIC_API_URL points at http://localhost:8080.
-// In prod, it points at the Cloud Run URL.
+// In dev, NEXT_PUBLIC_API_URL points at http://localhost:3000/api.
+// In prod, it points at the Vercel Function URL (same origin under /api).
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
@@ -121,10 +121,10 @@ export type StatsResponse = {
 
 export type Health = {
   ok: boolean;
-  mongo: string;
-  voyage: string;
-  gemini_model: string;
-  events_24h: number;
+  aurora: { ok: boolean; version?: string; error?: string };
+  dynamo: { ok: boolean; table?: string; status?: string; item_count?: number; error?: string };
+  region: string;
+  oidc: "present" | "missing";
 };
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {

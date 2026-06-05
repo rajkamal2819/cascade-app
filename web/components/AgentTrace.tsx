@@ -12,7 +12,7 @@ type TraceLine = {
 };
 
 // The Agent Trace panel renders a deterministic, phase-synced view of what
-// the ADK + MongoDB MCP synthesiser is doing while a cascade builds. The
+// the Aurora + Gemini synthesiser is doing while a cascade builds. The
 // backend doesn't stream tool-call events yet, so this layer is derived
 // from the cascade phase + root + node count — enough to show judges
 // "this is a real agent, not a static API."
@@ -47,9 +47,9 @@ export function AgentTrace() {
       setLines((prev) => (prev.some((p) => p.text === l.text && p.kind === l.kind) ? prev : [...prev, l]));
 
     if (phase === "building") {
-      append({ kind: "tool", text: "search_events", detail: "vector + text + RRF" });
+      append({ kind: "tool", text: "search_events", detail: "pgvector + tsvector + RRF" });
       if (root?.tickers?.[0]) append({ kind: "io", text: `query ⇢ ${root.tickers[0]} · ${root.sector ?? "—"}` });
-      append({ kind: "tool", text: "build_cascade", detail: "$graphLookup · 3 hops" });
+      append({ kind: "tool", text: "build_cascade", detail: "recursive CTE · 3 hops" });
     }
     if (phase === "ranking") {
       append({ kind: "tool", text: "voyage rerank-2.5", detail: "cross-encoder · top-50 → top-10" });
@@ -57,7 +57,7 @@ export function AgentTrace() {
     }
     if (phase === "synthesising") {
       append({ kind: "agent", text: "society · fan-out", detail: "critic · predictor · memory · eli5" });
-      append({ kind: "tool", text: "aggregate_stats", detail: "$facet" });
+      append({ kind: "tool", text: "aggregate_stats", detail: "WITH parallel CTEs" });
     }
     if (phase === "ready") {
       append({ kind: "ok", text: "cascade ready", detail: `${nodeCount} nodes · gemini synth done` });

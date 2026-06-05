@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Cascade — Real-time market intelligence",
-  description: "Real-time market cascade intelligence powered by MongoDB and Gemini.",
+  description: "Real-time market cascade intelligence on Vercel + AWS Aurora & DynamoDB, with Gemini reasoning.",
 };
 
 // Read the saved theme before paint so a reload in light mode doesn't flash dark first.

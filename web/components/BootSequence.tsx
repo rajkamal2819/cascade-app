@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const STEPS = [
   { label: "Bootstrapping Cascade terminal", ms: 180 },
-  { label: "Connecting MongoDB Atlas · M0", ms: 260 },
-  { label: "Loading $graphLookup walker · 3 hops", ms: 200 },
-  { label: "Initialising Voyage rerank-2.5", ms: 220 },
-  { label: "Waking Gemini 3 Pro · synthesiser", ms: 280 },
+  { label: "Connecting Aurora PostgreSQL · Serverless v2", ms: 260 },
+  { label: "Loading recursive-CTE walker · 3 hops", ms: 200 },
+  { label: "Initialising pgvector HNSW · cosine", ms: 220 },
+  { label: "Attaching DynamoDB live mirror · Streams", ms: 240 },
+  { label: "Waking Gemini · synthesiser", ms: 280 },
   { label: "Spawning society · critic · predictor · memory · eli5", ms: 240 },
-  { label: "Subscribing to change-stream · SSE online", ms: 200 },
+  { label: "Subscribing to LISTEN/NOTIFY · SSE online", ms: 200 },
   { label: "All systems nominal", ms: 180 },
 ];
 
