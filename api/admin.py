@@ -135,6 +135,21 @@ async def seed_demo_events(
     count: int = Query(default=60, ge=1, le=500),
     days_back: int = Query(default=14, ge=1, le=90),
 ) -> dict[str, Any]:
+    try:
+        return await _seed_demo_events_inner(key, x_cron_secret, count, days_back)
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        raise HTTPException(500, f"{type(e).__name__}: {e}\n{traceback.format_exc()[:1500]}")
+
+
+async def _seed_demo_events_inner(
+    key: str | None,
+    x_cron_secret: str | None,
+    count: int,
+    days_back: int,
+) -> dict[str, Any]:
     """Generate `count` synthetic events spread over the last `days_back`
     days so the UI feed has something to render until real workers ingest.
 
