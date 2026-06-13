@@ -2,11 +2,11 @@
 
 # Cascade
 
-### Real-time global market intelligence on the Zero Stack.
+### Watch the world cascade.
 
-When a single headline moves markets, Cascade tells you *which 30 stocks move next* — in seconds, not hours. Built end-to-end on **Vercel + AWS Databases** for the [H0: Hack the Zero Stack](https://h01.devpost.com/) hackathon.
+When a chip plant fires, a tanker stalls, or an 8-K drops, **Cascade** walks the supply chain three hops deep and ranks the **thirty downstream tickers about to move** — in seconds, not hours. Built end-to-end on **Vercel + AWS Databases** for the [H0: Hack the Zero Stack](https://h01.devpost.com/) hackathon.
 
-[**Live terminal →**](https://cascade-terminal.vercel.app) &nbsp;·&nbsp; [**Architecture →**](#architecture) &nbsp;·&nbsp; [**Demo video →**](#demo-video)
+[**Live terminal →**](https://cascade-app-pi.vercel.app) &nbsp;·&nbsp; [**Architecture →**](#architecture) &nbsp;·&nbsp; [**Demo video →**](#demo-video)
 
 </div>
 
@@ -14,46 +14,135 @@ When a single headline moves markets, Cascade tells you *which 30 stocks move ne
 
 ## The problem
 
-A chip plant fire in Taiwan. An oil tanker stuck in the Red Sea. A Fed surprise. Within minutes, hundreds of stocks reprice. But the link between that headline and the *30 companies it's about to hit* lives in an analyst's head — scattered across Bloomberg terminals, Discord servers, SEC filings, and weather alerts. By the time a human stitches it together, the move is gone.
+A chip plant fire in Taiwan. An oil tanker stuck in the Red Sea. A surprise 8-K after the close. Within minutes hundreds of stocks reprice — but the link between *that headline* and the *30 companies it's about to hit* lives in an analyst's head, scattered across terminals, Discord servers, filings, and weather alerts. By the time a human stitches it together, the move is gone.
 
-**Cascade is the missing connective tissue.** It ingests live news, filings, social signals, and price ticks into Aurora PostgreSQL; walks supply-chain graphs in real time with a `WITH RECURSIVE` CTE; reranks impacted companies with Voyage `rerank-2.5`; mirrors the live event firehose into DynamoDB so Streams can fan it out to every connected browser via SSE; and — for tickerless events like geopolitics, weather, and macro shocks — asks Gemini to infer the affected regions, sectors, and transmission mechanism, then plots structured coordinates onto a 3D globe.
+**Cascade is the missing connective tissue.** Live news, filings, social signals, and price ticks land in Aurora PostgreSQL; a `WITH RECURSIVE` CTE walks a 1,149-edge supplier / customer / peer graph three hops deep; Voyage `rerank-2.5` ranks the survivors; DynamoDB Streams mirrors the event firehose so every connected browser sees the cascade the moment it happens. For tickerless events — geopolitics, weather, regulatory rulings — Gemini infers the affected regions and sectors, range-validated against the Aurora company universe so hallucinated tickers never escape.
 
 Two AWS databases. One agent. Every market shock visible the moment it happens.
 
 ---
 
-## What's distinctive
+## Two AWS databases, eight access patterns
 
-### 🧠 Aurora PostgreSQL as the analytical brain
+The dual-database split is the architecture, not a demo flourish. Each pattern is matched to the database that does it best.
 
-One database holds events (with `pgvector` HNSW embeddings), cascades, companies (with `PostGIS` POINT geometry), and a 1149-edge supplier/customer/peer graph in `relationships`. Three Postgres features compose into one query:
-- `pgvector` semantic recall (1024-dim cosine)
-- `tsvector` + `GIN` keyword recall (RRF-fused with the vector leg in SQL)
-- `WITH RECURSIVE` 3-hop graph walk over `relationships`, `weight >= 0.3` filter
+| Access pattern | Database | Why this DB |
+|---|---|---|
+| Vector recall over 1024-dim Voyage embeddings | **Aurora PostgreSQL** | `pgvector` HNSW — cosine in the same SQL the rest of the query already uses |
+| Keyword recall (BM25-style) | **Aurora PostgreSQL** | `tsvector` + `GIN` — composes with the vector leg in one query via Reciprocal Rank Fusion |
+| 3-hop supply-chain walk (1,149 directed edges) | **Aurora PostgreSQL** | `WITH RECURSIVE` CTE — typed joins, multiplicative path weight, single LIMIT |
+| Geographic proximity (HQ within Nkm of a quake / hurricane) | **Aurora PostgreSQL** | `PostGIS` `ST_DWithin` over `geography(POINT, 4326)` + GIST index |
+| In-database live push (one trigger, every browser) | **Aurora PostgreSQL** | `LISTEN/NOTIFY` — Vercel Function holds an `asyncpg` listener, streams via SSE |
+| Single-digit-ms event mirror for live fanout | **DynamoDB on-demand** | `PK = EVENT#<source>` / `SK = <ingested_at>` — same shape, same partition |
+| Per-device anonymous history (last 20 cascade views) | **DynamoDB on-demand** | `PK = USER#<device_id>` — sub-10ms reads, native TTL 30d, no GSI |
+| Per-user watchlist | **DynamoDB on-demand** | `PK = WATCHLIST#<user_id>` — same table, one bill line |
+| AWS-native live fanout to every Vercel instance | **DynamoDB Streams → EventBridge Pipe → HTTPS webhook** | Complements the Aurora `LISTEN/NOTIFY` channel — cold function joins live traffic without waiting on its own listener |
 
-Voyage `rerank-2.5` runs over the candidate set as a Python post-step. See [agent/tools.py → build_cascade](agent/tools.py).
+Aurora owns the analytical plane — vector + recursive walk + geography + FTS in *one query*. DynamoDB owns the real-time mirror — single-table, Streams, TTL, on-demand. Neither could do the other's job at hackathon cost.
 
-### ⚡ DynamoDB as the real-time mirror
+---
 
-Every event insert lands twice: durable history in Aurora, hot record in **DynamoDB on-demand** (`ripple-dynamodb`, single-table design, `PK`/`SK` with entity-type prefixes). **DynamoDB Streams** → **EventBridge Pipe** → **HTTPS webhook** to a Vercel Function → SSE broadcast to every connected browser. No Lambda needed in the path.
+## The recursive cascade walk
 
-User device history (`USER#<device_id>`) and watchlists (`WATCHLIST#<user_id>`) live in the same table — three logical entities, one table, one connection, single bill line. Rick Houlihan would approve.
+The H0 Technical Implementation centerpiece. The supply-chain walk is one Postgres CTE — see [db/schema.py](db/schema.py):
 
-### 🌐 Tickerless events via Gemini + structured-coordinate validation
+```sql
+WITH RECURSIVE walk AS (
+    SELECT
+        r.from_ticker  AS root,
+        r.from_ticker  AS path_from,
+        r.to_ticker    AS ticker,
+        r.type,
+        r.weight       AS edge_weight,
+        r.weight       AS cumulative_weight,
+        1              AS hop
+    FROM relationships r
+    WHERE r.from_ticker = ANY($1::TEXT[])
+      AND r.weight >= $3
 
-When an event has no ticker — a geopolitical flare-up, a hurricane, a regulatory ruling — most terminals show nothing. Cascade asks Gemini 2.5 in JSON-mode to return a **structured impact hypothesis**: affected regions with geographic centroids (lat/lon, **server-side range-validated** to drop NaN / out-of-range hallucinations), sector exposure with confidence, transmission mechanism in one sentence, and a historical analog. Companies are validated against our Aurora-side ticker universe so hallucinated symbols never escape. See [agent/geo_cascade.py](agent/geo_cascade.py).
+    UNION ALL
 
-### 🔄 Two live channels into one SSE stream
+    SELECT w.root, r.from_ticker, r.to_ticker, r.type, r.weight,
+           w.cumulative_weight * r.weight,
+           w.hop + 1
+    FROM walk w
+    JOIN relationships r ON r.from_ticker = w.ticker
+    WHERE w.hop < $2
+      AND r.weight >= $3
+      AND r.to_ticker <> w.root
+)
+SELECT root, path_from, ticker, type, edge_weight, cumulative_weight, hop
+FROM walk
+ORDER BY hop ASC, cumulative_weight DESC
+LIMIT 500;
+```
 
-The SSE Vercel Function (`api/sse.py`) subscribes to both:
-1. **Aurora `LISTEN/NOTIFY`** — one trigger on `events` insert, asyncpg listener inside the function. Lowest latency, in-DB path.
-2. **DynamoDB Streams → EventBridge Pipe → HTTPS webhook** — fans out to every Vercel Function instance. Pure-AWS path.
+Three parameters — root tickers, max hops, min edge weight. The cumulative weight (multiplicative across hops) is *just a column*, so the front-end's `cascade_score` ranking comes for free. Replaces MongoDB's `$graphLookup` from the prior iteration with native SQL that joins on the same `relationships` table the rest of the app already uses.
 
-Both feed the same browser-facing SSE. Either alone is enough; together they're redundancy + a demo-able dual-DB pitch.
+---
 
-### 🧬 Agent Society (Critic, Predictor, Memory, ELI5)
+## In-database push — one trigger, every browser
 
-Beyond synthesis, four Gemini sub-agents reason in parallel about each cascade. Each one degrades gracefully when Gemini times out — deterministic local fallback ensures the UI never blanks. Per-field persistence into Aurora `cascades.society jsonb` so the agents stream in independently. See [agent/society.py](agent/society.py).
+When a worker inserts an event, an `AFTER INSERT` trigger fires `pg_notify('events_new', NEW.id::text)`. The SSE Vercel Function holds an `asyncpg` connection open with `LISTEN events_new` and re-emits over the wire. No Redis, no queue, no Lambda — Postgres *is* the bus.
+
+```sql
+CREATE OR REPLACE FUNCTION notify_event_inserted() RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM pg_notify('events_new', NEW.id::text);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_events_notify
+AFTER INSERT ON events
+FOR EACH ROW EXECUTE FUNCTION notify_event_inserted();
+```
+
+This is the *primary* live channel. The secondary channel — **DynamoDB Streams → EventBridge Pipe → HTTPS webhook → the same SSE** — fans the firehose out to every Vercel Function instance, so a cold function picks up live traffic without waiting for its own `LISTEN` to wake up. Either alone keeps the UI live; together they are redundancy plus a demonstrable dual-DB pitch.
+
+---
+
+## DynamoDB single-table — three entities, one bill
+
+One table, three logical entities, distinguished by PK prefix. See [db/dynamo.py](db/dynamo.py).
+
+| `PK`                | `SK`              | Entity                                       | TTL  | Streams |
+|---------------------|-------------------|----------------------------------------------|------|---------|
+| `EVENT#<source>`    | `<ingested_at>`   | Live event mirror, re-broadcast via Streams  | 14d  | ON      |
+| `USER#<device_id>`  | `<viewed_at>`     | Anonymous cascade-view history (last 20)     | 30d  | —       |
+| `WATCHLIST#<user>`  | `META`            | Per-user pinned tickers                      | —    | —       |
+
+Why single-table:
+- One resource bill, one connection, one IAM role to scope.
+- All three entities are point-read / range-scan only — no joins, no GSI needed.
+- TTL handles cleanup for events (14d) and history (30d) — no cron, no sweep job.
+- Streams give us the AWS-native live fanout path for free.
+
+---
+
+## Why Million-scale works on this stack
+
+| Layer | Idle cost | Scaling story |
+|---|---|---|
+| **Aurora PostgreSQL Serverless v2** | $0 (`min_capacity = 0 ACU` + 5-min auto-pause) | ACUs scale 0 → 16 on demand; HNSW + `WITH RECURSIVE` are single-digit-ms at seed size |
+| **DynamoDB on-demand** | $0 (no provisioned capacity) | No capacity ceiling — billed per request, partition by `PK` |
+| **Vercel** | $0 (Hobby) | Edge cache + global function regions; SSE backpressure is per-function |
+| **Gemini** | $0 (AI Studio free tier) | Stateless HTTPS; geo-cascade results cached on the event row so the second click is instant |
+| **Voyage AI** | $0 (free tier, 3 RPM) | Batched 64 per call; degrades gracefully to text-only when rate-limited |
+
+A judge clicking around for ten minutes consumes ~200 ACU-seconds and a few hundred DynamoDB ops. The whole judging window costs us under $5. The architecture is identical from 1 user to 1M — only the Aurora ACU peak and DynamoDB partition count grow.
+
+---
+
+## Tickerless events via Gemini geo-cascade
+
+When an event has no ticker — a geopolitical flare-up, a hurricane, a regulatory ruling — most terminals show nothing. Cascade asks Gemini in JSON-mode for a **structured impact hypothesis**: affected regions with geographic centroids (lat/lon, server-side range-validated to drop NaN / out-of-range hallucinations), sector exposure with confidence, transmission mechanism in one sentence, and a historical analog. Companies are validated against the Aurora company universe before anything hits the UI — hallucinated symbols never escape. Result is cached on the event row so the second click is instant. See [agent/geo_cascade.py](agent/geo_cascade.py).
+
+---
+
+## Agent Society — four reasoners in parallel
+
+Beyond the cascade itself, four Gemini sub-agents — **Critic**, **Predictor**, **Memory**, **ELI5** — reason about each cascade in parallel. Each has a 15s timeout and a deterministic local fallback so the UI never blanks. **Memory** reads the user's last 20 cascade views from DynamoDB by `device_id` for grounded observations like *"you've opened TSM 4× this week, always during Taiwan events."* Per-field persistence into `cascades.society` (`jsonb`) means each agent streams in independently. See [agent/society.py](agent/society.py).
 
 ---
 
@@ -79,7 +168,7 @@ flowchart TB
         direction TB
         FE[Next.js 15 frontend<br/>terminal UI]
         API["FastAPI<br/>(Python Serverless Function)<br/>api/index.py · mangum"]
-        CRON["Cron handler<br/>api/cron/dispatch_workers.py<br/>round-robin minute%11"]
+        CRON["Cron handler<br/>api/cron/dispatch_workers.py<br/>hi/lo buckets"]
         SSE["SSE handler<br/>response streaming"]
     end
 
@@ -137,55 +226,46 @@ flowchart TB
 
 ---
 
-## AWS Databases used
-
-The two-database choice is deliberate — each owns the access pattern it's best at.
-
-| # | Service | Where it lives | Why it owns this pattern |
-|---|---|---|---|
-| 1 | **Amazon Aurora PostgreSQL Serverless v2** | events · cascades · companies · relationships · prices | Three Postgres extensions compose in one query: `pgvector` for semantic recall, `tsvector` for keyword recall, `WITH RECURSIVE` for the 3-hop supply-chain walk. `PostGIS` for geo events. Auto-pause to 0 ACUs = $0 idle. |
-| 2 | **Amazon DynamoDB** (on-demand) | events_stream · user_memory · watchlists (single table) | Sub-10ms reads at any scale. Streams provide the live-fanout backbone via EventBridge Pipe. TTL handles auto-cleanup. Single-table design with PK prefixes models three logical entities in one resource. |
-
----
-
 ## Tech stack
 
-**Frontend** — Next.js 15 App Router · TypeScript strict · Tailwind · react-globe.gl + three · framer-motion · Zustand · react-window virtual feed · SSE client
+**Frontend** — Next.js 15 App Router · TypeScript strict · Tailwind · react-globe.gl + three · Zustand · framer-motion · react-window virtual feed · SSE client.
 
-**Backend** — Python 3.11 · FastAPI · `mangum` adapter to Vercel Python Serverless Functions · `asyncpg` (Aurora PG) · `aioboto3` (DynamoDB) · `pgvector` Python bindings · Pydantic v2 · sse-starlette response streaming
+**Backend (Vercel Python Serverless Functions)** — FastAPI wrapped with `mangum` ([api/index.py](api/index.py)) · `asyncpg` (Aurora PG) · `aioboto3` (DynamoDB) · `pgvector` Python bindings · Pydantic v2 · `sse-starlette` response streaming.
 
-**Ingestion** — Vercel Cron Jobs invoke `api/cron/dispatch_workers.py` every minute, routing by `minute % 11` to the right worker module under `workers/`: SEC EDGAR 8-K · Marketaux · yfinance · Alpha Vantage · Reddit (gated) · RSS · GDELT · USGS · NOAA · OpenSky · AISStream
+**Auth** — Vercel OIDC token (`x-vercel-oidc-token` header, per request) → STS `AssumeRoleWithWebIdentity` → temp creds for Aurora RDS IAM + DynamoDB. **No static AWS keys anywhere in code or env vars.** See [db/_aws_creds.py](db/_aws_creds.py).
 
-**AI** — Gemini (AI Studio key, `gemini-3-flash-preview`) for synthesis, geo-cascade, and the agent society — called as external HTTPS, no GCP infra · Voyage AI (`voyage-4` embeddings, `voyage-multimodal-3` images, `voyage-rerank-2.5` cross-encoder)
+**Ingestion** — One Vercel Cron Job dispatches eleven workers by bucket (`hi` every 5 min, `lo` hourly): SEC EDGAR 8-K · Marketaux · yfinance · Alpha Vantage · Reddit · RSS feeds · GDELT · USGS · NOAA · OpenSky · AISStream.
 
-**Hosting** — Vercel (frontend + Python functions + cron, Hobby tier $0/mo) · Aurora Serverless v2 with auto-pause ($0 idle, ~$0.06/active-ACU-hour) · DynamoDB on-demand (free tier covers hackathon volumes)
+**AI** — Gemini `gemini-3-flash-preview` (AI Studio HTTPS, no GCP infra) for cascade synthesis, the agent society, and geo-cascade · Voyage AI `voyage-4` embeddings, `voyage-multimodal-3` images, `voyage-rerank-2.5` cross-encoder.
+
+**Hosting** — Vercel Hobby ($0/mo) · Aurora Serverless v2 with `min_capacity = 0 ACU` ($0 idle) · DynamoDB on-demand (free tier covers hackathon volumes).
 
 ---
 
 ## Quick start (local dev)
 
-Prereqs: Python 3.11+, Node 20+, an AWS account with Aurora PG + DynamoDB provisioned via [v0 / Vercel Marketplace AWS Databases](https://vercel.com/marketplace/aws-databases), a Voyage AI key, a Gemini key.
+Prereqs: Python 3.11+, Node 20+, an AWS account with Aurora PG + DynamoDB provisioned via [Vercel Marketplace AWS Databases](https://vercel.com/marketplace/aws-databases), a Voyage AI key, a Gemini key.
 
 ```bash
-git clone https://github.com/rajkamal2819/Cascade.git
-cd Cascade
+git clone https://github.com/rajkamal2819/cascade-app.git
+cd cascade-app
 
 # Backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env  # fill in DATABASE_URL, DYNAMODB_TABLE, AWS_*, VOYAGE_API_KEY, GEMINI_API_KEY, SEC_USER_AGENT
+cp .env.example .env
+# fill in POSTGRES_*, DYNAMODB_*, VOYAGE_API_KEY, GEMINI_API_KEY, CRON_SECRET, SEC_USER_AGENT
 
-# Provision Aurora schema (collections, pgvector + tsvector + PostGIS indexes, TTL partitioning, time-series partitions)
-python -m scripts.setup_aurora
-python -m scripts.seed_companies
-python -m scripts.seed_relationships
+# Apply schema (pgvector + PostGIS + tsvector + HNSW + LISTEN/NOTIFY) + load seed
+curl -X POST "http://localhost:8080/api/admin/bootstrap?key=$CRON_SECRET"
+curl -X POST "http://localhost:8080/api/admin/seed?key=$CRON_SECRET"
 
 # Ingest some events
 python -m workers.sec_edgar --once
 python -m workers.yfinance_ticks --once
 
-# Run the API locally (still uses uvicorn for dev; mangum wraps it for Vercel)
-uvicorn api.main:app --reload --port 8080
+# Run the API locally (mangum wraps the same app for Vercel in production)
+uvicorn api.index:app --reload --port 8080
 
 # In another shell — run the frontend
 cd web && npm install && npm run dev
@@ -197,68 +277,67 @@ cd web && npm install && npm run dev
 ## Repo layout
 
 ```
-Cascade/
-├── web/                Next.js terminal UI
-│   ├── app/            landing + /terminal
-│   └── components/     Globe, Feed, Cascade, GeoCascadePanel, AgentTrace, …
-├── api/                FastAPI + Vercel handlers
-│   ├── index.py        Vercel Python entrypoint (mangum-wrapped FastAPI app)
-│   ├── main.py         FastAPI app + routes
-│   ├── cron/           Vercel Cron Job handlers
-│   └── ...             cascade · search · sse · multimodal · models · deps
-├── agent/              Gemini orchestration
-│   ├── tools.py        search_events, build_cascade, get_company, prices, stats
-│   ├── geo_cascade.py  structured impact hypothesis + coord validation
-│   ├── society.py      Critic + Predictor + Memory + ELI5
-│   └── prompts.py
-├── db/                 AWS data adapters (NEW for Cascade)
-│   ├── aurora.py       asyncpg pool + pgvector + recursive CTE helpers
-│   └── dynamo.py       aioboto3 + single-table helpers
-├── workers/            11 ingestion modules (poll_once / work)
-├── embed/              Voyage wrappers (text, multimodal, rerank, NER)
-├── scripts/            setup_aurora, seed_*, backfill_embeddings, test_tools
-├── data/               companies.json, relationships.json (1149 edges)
-├── vercel.json         Python runtime + crons (single source of infra truth)
-├── requirements.txt    Vercel Python runtime deps
-└── pyproject.toml      local dev tools
+cascade-app/
+├── web/                   Next.js terminal UI
+│   ├── app/               landing + /terminal
+│   └── components/        Globe, Feed, Cascade, GeoCascadePanel, AgentTrace, …
+├── api/                   FastAPI + Vercel handlers
+│   ├── index.py           Vercel Python entrypoint (mangum-wrapped FastAPI)
+│   ├── feed.py            Aurora-backed events / stats / search / cascade / SSE / memory
+│   ├── graph.py           companies + recursive-CTE walk + PostGIS proximity
+│   ├── admin.py           schema bootstrap + seed + backfill (CRON_SECRET gated)
+│   └── cron/              Vercel Cron Job dispatcher (hi / lo buckets)
+├── agent/                 Gemini orchestration
+│   ├── society.py         Critic + Predictor + Memory + ELI5
+│   ├── geo_cascade.py     structured impact hypothesis + coord validation
+│   └── cascade_reasoning.py  severity + risk factors synthesis
+├── db/                    AWS data adapters
+│   ├── aurora.py          asyncpg pool, RDS IAM auth via OIDC
+│   ├── dynamo.py          aioboto3 single-table helpers
+│   ├── _aws_creds.py      STS AssumeRoleWithWebIdentity via x-vercel-oidc-token
+│   └── schema.py          DDL + recursive-CTE SQL
+├── workers/               11 ingestion modules (poll_once / work)
+├── embed/                 Voyage wrappers (text, multimodal, rerank, NER)
+├── data/                  companies.json (102), relationships.json (1,149 edges)
+├── vercel.json            Vercel config
+└── requirements.txt       Vercel Python runtime deps
 ```
 
 ---
 
 ## Demo video
 
-📺 Coming soon — walkthrough of the live terminal, Aurora recursive-CTE cascade walk, DynamoDB Streams driving SSE, and the Gemini geo-cascade for tickerless events.
+[![Watch the Cascade demo](https://img.youtube.com/vi/ICiUKnO4LYQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=ICiUKnO4LYQ)
+
+▶ **[Watch the 3-minute demo on YouTube →](https://www.youtube.com/watch?v=ICiUKnO4LYQ)**
+
+Walkthrough of the live terminal, the Aurora `WITH RECURSIVE` cascade walk, the `LISTEN/NOTIFY` live channel, the DynamoDB single-table mirror, and the Gemini geo-cascade for tickerless events.
 
 ---
 
-## Status
+## Significant updates during the H0 submission period
 
-| Phase | Title | State |
-|---|---|---|
-| 1 | AWS account + DBs provisioned via Vercel Marketplace | ✅ |
-| 2 | Repo bootstrap + first Vercel deploy | ✅ |
-| 3 | Aurora schema (pgvector + PostGIS + recursive CTE) | ✅ |
-| 4 | Data adapter layer (db/aurora.py + db/dynamo.py) | ✅ |
-| 5 | FastAPI → Vercel Functions + Cron Jobs | ✅ |
-| 6 | Gemini society + narrative + geo-cascade | ✅ |
-| 7 | Voyage embeddings + hybrid search + rerank-2.5 | ✅ |
-| 8 | Aurora LISTEN/NOTIFY live SSE channel | ✅ |
-| 9 | DynamoDB Streams → EventBridge Pipe → SSE webhook | ⏳ AWS Console wiring |
-| 10 | Submission polish (video + bonus content + screenshots) | ⏳ |
+Per the H0 rules, every commit in this repo is in-window evidence dated **May 27 – June 29, 2026**.
 
----
+**New work built during the H0 window:**
 
-## Significant updates during the H0 submission period (per Devpost rules)
+- Complete AWS data layer: [db/aurora.py](db/aurora.py), [db/dynamo.py](db/dynamo.py), [db/schema.py](db/schema.py).
+- OIDC-based per-request AWS credential exchange ([db/_aws_creds.py](db/_aws_creds.py)) — no static keys, anywhere.
+- Aurora schema: `pgvector(1024)` HNSW + PostGIS + `tsvector`/GIN + the `LISTEN/NOTIFY` trigger.
+- DynamoDB single-table design (events / user_memory / watchlists) with TTL + Streams enabled.
+- The `WITH RECURSIVE` cascade-walk CTE replacing MongoDB `$graphLookup`.
+- Migration of the FastAPI app to Vercel Python Serverless Functions via `mangum` ([api/index.py](api/index.py)).
+- Aurora-backed feed / stats / search / cascade / memory route layer ([api/feed.py](api/feed.py), [api/graph.py](api/graph.py), [api/admin.py](api/admin.py)).
+- Vercel Cron Job dispatcher for 11 ingestion workers ([api/cron/dispatch_workers.py](api/cron/dispatch_workers.py)).
+- Vercel Marketplace AWS Databases integration end-to-end.
 
-> Cascade is built on a prior MongoDB/GCP iteration. **All AWS Databases and Vercel integration work was done between May 27 and June 29, 2026** — every commit in this repo is in-window evidence. Specifically: the Aurora PostgreSQL schema (`pgvector` HNSW + PostGIS + `WITH RECURSIVE` cascade walk + `LISTEN/NOTIFY` trigger), the DynamoDB single-table design with PK/SK prefixes for events_stream / user_memory / watchlists, the OIDC-based per-request AWS credential exchange (`db/_aws_creds.py`), the migration of the FastAPI app to Vercel Python Serverless Functions via `mangum` (`api/index.py`), the dual-database SSE pipeline (Aurora LISTEN/NOTIFY + DynamoDB Streams → EventBridge), the Gemini geo-cascade for tickerless events validated against the Aurora company universe, the Voyage hybrid search (pgvector cosine + tsvector + Reciprocal Rank Fusion + rerank-2.5), and the v0/Vercel Marketplace AWS Databases integration are all new work. The Next.js frontend shell was carried over; the entire backend, the AWS data layer, and the Vercel-native deployment surface were built during the H0 submission window.
+**Carried over from a prior iteration:** the Next.js frontend shell (Globe, Feed, Cascade, GeoCascadePanel, AgentTrace) — same look, rewired to talk to Aurora + DynamoDB instead of MongoDB.
 
 ---
 
 ## License
 
 [Apache-2.0](LICENSE).
-
----
 
 ## Acknowledgements
 
@@ -268,6 +347,6 @@ Built with [Vercel](https://vercel.com/) + [v0](https://v0.dev/), [Amazon Aurora
 
 <div align="center">
 
-*Cascade — two AWS databases, one agent, every market shock visible the moment it happens.*
+*Cascade — watch the world cascade. Every supply-chain shock, three hops deep, the moment it happens.*
 
 </div>

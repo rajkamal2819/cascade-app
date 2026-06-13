@@ -35,3 +35,7 @@ coverage.xml
 .idea/
 .vscode/
 .claude/
+
+# Local-only docs (not for the public repo)
+CLAUDE.md
+submission.md
