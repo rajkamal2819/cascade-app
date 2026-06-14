@@ -22,6 +22,21 @@ Two AWS databases. One agent. Every market shock visible the moment it happens.
 
 ---
 
+## Who it's for, and how it makes money
+
+Cascade sells to the people who get paid to see contagion first — **hedge funds and research desks** (per seat), **corporate risk and supply-chain teams** who need to know when a shock hits their suppliers three hops away, and **active traders** in a self-serve tier that funnels into the desks above.
+
+| Tier | Price | For |
+|---|---|---|
+| **Starter** | $29 / mo | individual traders, self-serve |
+| **Pro** | $149 / mo | power users and small teams |
+| **Desk** | $499 / seat / mo | funds and research desks |
+| **Enterprise** | custom | banks and corporates — API, SSO, private data |
+
+A Bloomberg Terminal runs roughly $2,000 a seat per month; Cascade Pro is about one-fifteenth of that, with the live cascade view Bloomberg doesn't ship. Because the stack scales to zero when idle, every tier earns from the first customer.
+
+---
+
 ## Two AWS databases, eight access patterns
 
 The dual-database split is the architecture, not a demo flourish. Each pattern is matched to the database that does it best.
@@ -120,7 +135,7 @@ Why single-table:
 
 ---
 
-## Why Million-scale works on this stack
+## Built to scale
 
 | Layer | Idle cost | Scaling story |
 |---|---|---|
