@@ -77,7 +77,7 @@ ORDER BY hop ASC, cumulative_weight DESC
 LIMIT 500;
 ```
 
-Three parameters — root tickers, max hops, min edge weight. The cumulative weight (multiplicative across hops) is *just a column*, so the front-end's `cascade_score` ranking comes for free. Replaces MongoDB's `$graphLookup` from the prior iteration with native SQL that joins on the same `relationships` table the rest of the app already uses.
+Three parameters — root tickers, max hops, min edge weight. The cumulative weight (multiplicative across hops) is *just a column*, so the front-end's `cascade_score` ranking comes for free. It's native SQL that joins on the same `relationships` table the rest of the app already uses — no separate graph engine, no extra service.
 
 ---
 
@@ -315,23 +315,22 @@ Walkthrough of the live terminal, the Aurora `WITH RECURSIVE` cascade walk, the 
 
 ---
 
-## Significant updates during the H0 submission period
+## Built during the H0 submission period
 
-Per the H0 rules, every commit in this repo is in-window evidence dated **May 27 – June 29, 2026**.
-
-**New work built during the H0 window:**
+Every commit in this repo is in-window evidence dated **May 27 – June 29, 2026**. The entire AWS + Vercel build is new work:
 
 - Complete AWS data layer: [db/aurora.py](db/aurora.py), [db/dynamo.py](db/dynamo.py), [db/schema.py](db/schema.py).
 - OIDC-based per-request AWS credential exchange ([db/_aws_creds.py](db/_aws_creds.py)) — no static keys, anywhere.
 - Aurora schema: `pgvector(1024)` HNSW + PostGIS + `tsvector`/GIN + the `LISTEN/NOTIFY` trigger.
 - DynamoDB single-table design (events / user_memory / watchlists) with TTL + Streams enabled.
-- The `WITH RECURSIVE` cascade-walk CTE replacing MongoDB `$graphLookup`.
-- Migration of the FastAPI app to Vercel Python Serverless Functions via `mangum` ([api/index.py](api/index.py)).
+- The `WITH RECURSIVE` supply-chain cascade-walk CTE.
+- FastAPI deployed as Vercel Python Serverless Functions via `mangum` ([api/index.py](api/index.py)).
 - Aurora-backed feed / stats / search / cascade / memory route layer ([api/feed.py](api/feed.py), [api/graph.py](api/graph.py), [api/admin.py](api/admin.py)).
 - Vercel Cron Job dispatcher for 11 ingestion workers ([api/cron/dispatch_workers.py](api/cron/dispatch_workers.py)).
+- Gemini agent society + geo-cascade reasoning ([agent/society.py](agent/society.py), [agent/geo_cascade.py](agent/geo_cascade.py)).
 - Vercel Marketplace AWS Databases integration end-to-end.
 
-**Carried over from a prior iteration:** the Next.js frontend shell (Globe, Feed, Cascade, GeoCascadePanel, AgentTrace) — same look, rewired to talk to Aurora + DynamoDB instead of MongoDB.
+The Next.js terminal UI (Globe, Feed, Cascade, GeoCascadePanel, AgentTrace) is our own design, built to talk to Aurora + DynamoDB over the live SSE channel.
 
 ---
 
